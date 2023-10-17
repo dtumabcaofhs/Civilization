@@ -7,7 +7,7 @@ public class Game extends PApplet {
     String societyType;
 
     public void settings() {
-        size(800, 800);   // set the window size
+        size(900, 900);   // set the window size
     }
 
     public void setup() {
