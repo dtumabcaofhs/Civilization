@@ -31,7 +31,7 @@ public class Game extends PApplet {
             //fill(0);
             //textSize(100);
             //text(societyType, 10 ,80);
-            DisplayTile.
+            DisplayTile.display(this);
         }
     }
 

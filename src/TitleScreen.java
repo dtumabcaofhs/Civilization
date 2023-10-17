@@ -1,7 +1,6 @@
 import processing.core.PApplet;
 
 public class TitleScreen {
-
     public static void draw(Game window) {
         //title
         window.fill(0);
