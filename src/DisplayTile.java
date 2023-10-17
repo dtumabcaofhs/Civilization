@@ -3,14 +3,14 @@ import Tiles.*;
 public class DisplayTile {
     public static void display(Game window){
         int counter = 0;
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
                 if (GenerateTile.getValue(counter) == 0) {
-                    Forest forest = new Forest(i,j);
+                    Forest forest = new Forest(i, j);
                     forest.draw(window);
                     counter++;
                 } else if (GenerateTile.getValue(counter) == 1) {
-                    Plain plain = new Plain(i,j);
+                    Plain plain = new Plain(i, j);
                     plain.draw(window);
                     counter++;
                 } else if (GenerateTile.getValue(counter) == 2) {

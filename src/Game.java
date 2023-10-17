@@ -14,6 +14,7 @@ public class Game extends PApplet {
         // TODO: initialize game variables
         societyType = "Agrarian";
         inGame = false;
+        GenerateTile.randomizeTiles();
     }
 
     /***
