@@ -9,7 +9,7 @@ public class TileUI {
     }
     public void draw(Game window) {
         Tile t = GenerateTile.tileList.get(listIndex);
-        int tileValue = GenerateTile.tileValues.get(listIndex);
+        int tileValue = GenerateTile.tileList.get(listIndex).value;
         window.fill(255);
         if (tileValue == 0) {
             window.text("Type: Forest", 1000, 100);

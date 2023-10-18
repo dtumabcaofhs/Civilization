@@ -5,6 +5,6 @@ public class BuildTile {
         Tile oldTile = GenerateTile.tileList.get(i);
         Mine mine = new Mine(oldTile.row, oldTile.col);
         GenerateTile.tileList.set(i, mine);
-        GenerateTile.tileValues.set(i, 4);
+        GenerateTile.tileList.get(i).value = 4;
     }
 }

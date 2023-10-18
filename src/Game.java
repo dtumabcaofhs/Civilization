@@ -1,17 +1,31 @@
 import processing.core.PApplet;
+import ddf.minim.Minim;
+import ddf.minim.AudioPlayer;
+import Tiles.Tile;
+
 public class Game extends PApplet {
     // TODO: declare game variables
     boolean inGame;
+    static int tick;
+    boolean builderMode = false;
+    TileUI save;
+
+    Minim minim;
+    AudioPlayer bg;
 
     public void settings() {
-        size(900, 900);   // set the window size
+        size(1400, 900);   // set the window size
     }
 
     public void setup() {
         // TODO: initialize game variables
         surface.setTitle("Smurf Cat Village");
         inGame = false;
-        GenerateTile.randomizeTiles();
+        GenerateTile.generateTiles();
+
+        minim = new Minim(this);
+        bg = minim.loadFile("Audio/y2mate.com - PSY  Gangnam Style Audio.mp3");
+        bg.play();
     }
 
     /***
@@ -23,9 +37,9 @@ public class Game extends PApplet {
         if(!inGame){
             TitleScreen.draw(this);
         }
-
         if(inGame){
-            DisplayTile.display(this);
+            Display.displayTile(this);
+            Display.displayUI(this, save);
         }
     }
 
@@ -33,6 +47,31 @@ public class Game extends PApplet {
         return mouseY >= y && mouseY <= y + h && mouseX >= x && mouseX <= x + w;
     }
 
+
+    public void mouseClicked() {
+        if(!inGame){
+            inGame = clickedOn(TitleScreen.playX, TitleScreen.playY, 200, 100);
+        }
+        for (int i = 0; i < 81; i++) {
+            Tile newTile = GenerateTile.tileList.get(i);
+            if(clickedOn(newTile.row*100, newTile.col*100,100,100)){
+                save = new TileUI(i);
+                if(GenerateTile.tileList.get(i).value == 2 && newTile.enriched && builderMode) {
+                    BuildTile.buildMine(i);
+                }
+            }
+        }
+        if(clickedOn(950, 750,400,100)){
+            builderMode = !builderMode;
+        }
+    }
+
+    public void keyReleased(){
+        if (key == ' ') {
+            Simulation.simulateOneTick();
+            tick++;
+        }
+    }
 
     public static void main(String[] args) {
         PApplet.main("Game");
