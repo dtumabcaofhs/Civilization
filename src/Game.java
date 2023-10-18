@@ -9,6 +9,7 @@ public class Game extends PApplet {
 
     public void setup() {
         // TODO: initialize game variables
+        surface.setTitle("Smurf Cat Village");
         inGame = false;
         GenerateTile.randomizeTiles();
     }
@@ -29,11 +30,9 @@ public class Game extends PApplet {
     }
 
     public boolean clickedOn(int x, int y, int w, int h){
-        if(mousePressed){
-            return mouseY >= y && mouseY <= y + h && mouseX >= x && mouseX <= x + w;
-        }
-        return false;
+        return mouseY >= y && mouseY <= y + h && mouseX >= x && mouseX <= x + w;
     }
+
 
     public static void main(String[] args) {
         PApplet.main("Game");
