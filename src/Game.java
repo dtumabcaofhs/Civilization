@@ -1,4 +1,6 @@
 import processing.core.PApplet;
+
+//ADD "lib/Audio" as library to prevent errors.
 import ddf.minim.Minim;
 import ddf.minim.AudioPlayer;
 import Tiles.Tile;
@@ -6,15 +8,14 @@ import Tiles.Tile;
 public class Game extends PApplet {
     // TODO: declare game variables
     boolean inGame;
-    static int tick;
-    boolean builderMode = false;
+    static int turn;
+    boolean farmMode = false, mineMode = false;
     TileUI save;
 
     Minim minim;
     AudioPlayer bg;
-
     public void settings() {
-        size(1400, 900);   // set the window size
+        size(1600, 900);   // set the window size
     }
 
     public void setup() {
@@ -61,8 +62,13 @@ public class Game extends PApplet {
                 }
             }
         }
-        if(clickedOn(950, 750,400,100)){
-            builderMode = !builderMode;
+        if(clickedOn(1425, 25,100,100)) {
+            farmMode = !farmMode;
+            mineMode = false;
+        }
+        if(clickedOn(1425, 150, 100, 100)) {
+            mineMode = !mineMode;
+            farmMode = false;
         }
     }
 

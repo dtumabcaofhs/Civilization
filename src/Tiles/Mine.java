@@ -6,6 +6,7 @@ public class Mine extends Tile{
         r = 255;
         g = 105;
         b = 105;
+        value = 4;
         enriched = true;
     }
 }

@@ -8,23 +8,25 @@ public class Display {
         }
         window.fill(0,0,55);
         window.rect(900,0,500,900);
+        window.fill(150,75,0);
+        window.rect(1400,0,200,900);
     }
     public static void displayUI(Game window, TileUI ui) {
         if(ui != null) {
             ui.draw(window);
         }
-
-        window.text("Turn: "+Game.tick, 905, 30);
-
+        window.text("Turn: "+Game.turn, 905, 30);
+        //farm
+        if(window.farmMode) {window.fill(0,255,0);
+        } else {window.fill(255,0,0);}
+        window.rect(1425, 25, 100, 100);
+        //mine
+        if(window.mineMode) {window.fill(0,255,0);
+        } else {window.fill(255,0,0);}
+        window.rect(1425,150,100,100);
         window.fill(0);
-        window.rect(950, 750, 400, 100);
-        window.fill(255);
-        if(window.builderMode) {
-            window.fill(0,255,0);
-            window.text("Builder Mode: ON", 1020, 810);
-        } else {
-            window.fill(255,0,0);
-            window.text("Builder Mode: OFF", 1020, 810);
-        }
+        window.text("Farm", 1450, 75);
+        window.text("Mine", 1450, 200);
+
     }
 }
