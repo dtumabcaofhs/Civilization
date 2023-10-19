@@ -1,6 +1,8 @@
-package Tiles;
+package Tiles.Terrain;
 
-public class Mountain extends Tile{
+import Tiles.Tile;
+
+public class Mountain extends Tile {
     public Mountain(int row, int col) {
         super(row, col);
         r = 105;

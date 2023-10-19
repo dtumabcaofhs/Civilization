@@ -1,6 +1,8 @@
-package Tiles;
+package Tiles.Terrain;
 
-public class Forest extends Tile{
+import Tiles.Tile;
+
+public class Forest extends Tile {
     public Forest(int row, int col){
         super(row, col);
         r = 1;

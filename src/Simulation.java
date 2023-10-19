@@ -1,17 +1,27 @@
+import Tiles.*;
+
 public class Simulation {
     public static int population = 500;
     public static int maxWorkerAmt = 2;
     public static int availWorkerAmt;
-    public static double foodLevel = 1.1;
+    public static int food = 500;
+    public static int wood = 20;
+    public static int stone = 0;
 
     public static void simulateOneTick() {
+        int rand = (int) (Math.random() * 5 + 1);
         availWorkerAmt = maxWorkerAmt;
-        foodLevel = 1.1;
-        System.out.println(population);
-        population = (int)(population*foodLevel);
+        maxWorkerAmt = 2 + population/5000;
+        population = (int)(population + (food - (population*0.1))) + rand;
+        food -= (int)(population*0.1) - 200;
+        if(food<0){
+            food = 0;
+        }
         for (int i = 0; i < GenerateTile.tileList.size(); i++) {
-            if(GenerateTile.tileList.get(i).value == 5) { foodLevel += 0.05;
-            }
+            Tile currTile = GenerateTile.tileList.get(i);
+            if(currTile.value == 5) { food += 30; }
+            if(currTile.value == 7) { wood += 2; }
+            if(currTile.value == 4 ){ stone += 2; }
         }
     }
 }

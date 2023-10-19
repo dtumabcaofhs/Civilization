@@ -1,6 +1,8 @@
-package Tiles;
+package Tiles.Buildings;
 
-public class City extends Tile{
+import Tiles.Tile;
+
+public class City extends Tile {
     public City(int row, int col) {
         super(row, col);
         r = 255;

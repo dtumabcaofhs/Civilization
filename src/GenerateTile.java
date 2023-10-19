@@ -1,4 +1,8 @@
 import Tiles.*;
+import Tiles.Buildings.City;
+import Tiles.Terrain.Forest;
+import Tiles.Terrain.Mountain;
+import Tiles.Terrain.Plain;
 
 import java.util.ArrayList;
 
@@ -22,9 +26,9 @@ public class GenerateTile {
                     forest.enriched = randomizeEnrichment();
                     tileList.add(forest);
                 } else if (rand == 1) {
-                    Plains plains = new Plains(row, col);
-                    plains.enriched = randomizeEnrichment();
-                    tileList.add(plains);
+                    Plain plain = new Plain(row, col);
+                    plain.enriched = randomizeEnrichment();
+                    tileList.add(plain);
                 } else if (rand == 2) {
                     Mountain mountain = new Mountain(row, col);
                     mountain.enriched = randomizeEnrichment();

@@ -1,6 +1,8 @@
-package Tiles;
+package Tiles.Buildings;
 
-public class Mine extends Tile{
+import Tiles.Tile;
+
+public class Mine extends Tile {
     public Mine(int row, int col) {
         super(row, col);
         r = 255;
