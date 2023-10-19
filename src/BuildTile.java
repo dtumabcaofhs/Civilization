@@ -5,6 +5,13 @@ public class BuildTile {
         Tile oldTile = GenerateTile.tileList.get(i);
         Mine mine = new Mine(oldTile.row, oldTile.col);
         GenerateTile.tileList.set(i, mine);
-        GenerateTile.tileList.get(i).value = 4;
+        Simulation.availWorkerAmt--;
+    }
+    public static void buildFarm(int i){
+        Tile oldTile = GenerateTile.tileList.get(i);
+        Farm farm = new Farm(oldTile.row, oldTile.col);
+        farm.enriched = oldTile.enriched;
+        GenerateTile.tileList.set(i, farm);
+        Simulation.availWorkerAmt--;
     }
 }

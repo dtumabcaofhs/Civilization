@@ -21,6 +21,8 @@ public class TileUI {
             window.text("Type: City", 1000, 100);
         } else if (tileValue == 4) {
             window.text("Type: Mine", 1000, 100);
+        } else if (tileValue == 5) {
+            window.text("Type: Farm", 1000, 100);
         }
         if(t.enriched && tileValue != 3) {
             window.text("Enriched Tile", 1000, 200);

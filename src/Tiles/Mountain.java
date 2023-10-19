@@ -6,5 +6,6 @@ public class Mountain extends Tile{
         r = 105;
         g = 105;
         b = 105;
+        value = 2;
     }
 }

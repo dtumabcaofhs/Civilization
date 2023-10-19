@@ -1,6 +1,6 @@
 import processing.core.PApplet;
 
-//ADD "lib/Audio" as library to prevent errors.
+//ADD "lib/AudioLib" as library to prevent errors.
 import ddf.minim.Minim;
 import ddf.minim.AudioPlayer;
 import Tiles.Tile;
@@ -27,6 +27,7 @@ public class Game extends PApplet {
         minim = new Minim(this);
         bg = minim.loadFile("Audio/y2mate.com - PSY  Gangnam Style Audio.mp3");
         bg.play();
+        Simulation.simulateOneTick();
     }
 
     /***
@@ -57,8 +58,10 @@ public class Game extends PApplet {
             Tile newTile = GenerateTile.tileList.get(i);
             if(clickedOn(newTile.row*100, newTile.col*100,100,100)){
                 save = new TileUI(i);
-                if(GenerateTile.tileList.get(i).value == 2 && newTile.enriched && builderMode) {
+                if(newTile.value == 2 && newTile.enriched && mineMode && Simulation.availWorkerAmt>0) {
                     BuildTile.buildMine(i);
+                }if(newTile.value != 3 && newTile.value != 4 && newTile.value != 5 && farmMode && Simulation.availWorkerAmt>0) {
+                    BuildTile.buildFarm(i);
                 }
             }
         }
@@ -75,7 +78,7 @@ public class Game extends PApplet {
     public void keyReleased(){
         if (key == ' ') {
             Simulation.simulateOneTick();
-            tick++;
+            turn++;
         }
     }
 
