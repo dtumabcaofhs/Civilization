@@ -41,5 +41,6 @@ public class GenerateTile {
                 }
             }
         }
+        GeneratePerson.generateWorker(4,4);
     }
 }

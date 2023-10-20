@@ -1,3 +1,4 @@
+import People.*;
 import Tiles.*;
 
 public class Display {
@@ -90,6 +91,11 @@ public class Display {
             } else if (tileValue != 3) {
                 window.text("Normal Tile", enrichTxtX, enrichTxtY);
             }
+        }
+    }
+    public static void displayPeople(Game window) {
+        for (int i = 0; i < GeneratePerson.personList.size(); i++) {
+            GeneratePerson.personList.get(i).draw(window);
         }
     }
 }

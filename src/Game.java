@@ -1,9 +1,10 @@
+import People.*;
 import processing.core.PApplet;
 
 //ADD "lib/AudioLib" as library to prevent errors.
 import ddf.minim.Minim;
 import ddf.minim.AudioPlayer;
-import Tiles.Tile;
+import Tiles.*;
 
 public class Game extends PApplet {
     // TODO: declare game variables
@@ -24,8 +25,8 @@ public class Game extends PApplet {
         GenerateTile.generateTiles();
 
         minim = new Minim(this);
-        bg = minim.loadFile("Audio/y2mate.com - PSY  Gangnam Style Audio.mp3");
-        bg.play();
+        //bg = minim.loadFile("Audio/y2mate.com - PSY  Gangnam Style Audio.mp3");
+        //bg.play();
         Simulation.simulateOneTick();
     }
 
@@ -42,6 +43,7 @@ public class Game extends PApplet {
             Display.displayTile(this);
             Display.displayUI(this);
             Display.displayInfo(this);
+            Display.displayPeople(this);
         }
     }
 
@@ -102,6 +104,73 @@ public class Game extends PApplet {
                     buildType = 0;
                 }else{
                     buildType = 7;
+                }
+            }
+            for (int i = 0; i < GeneratePerson.personList.size(); i++) {
+                Person newPerson = GeneratePerson.personList.get(i);
+                if(clickedOn((newPerson.row*100)+30, (newPerson.col*100) + 30, 40, 40)) {
+                    if(newPerson == GeneratePerson.selected) {
+                        GeneratePerson.selected = null;
+                    } else {
+                        GeneratePerson.selected = newPerson;
+                    }
+                }
+            }
+            for (int i = 0; i < GeneratePerson.personList.size(); i++) {
+                Person person = GeneratePerson.personList.get(i);
+                if(person == GeneratePerson.selected) {
+                    person.r = 0;
+                    person.g = 255;
+                    person.b = 255;
+                    if(clickedOn((person.row*100) + 100, person.col*100, 100, 100)) {
+                        person.row++;
+                        GeneratePerson.personList.set(i, person);
+                        GeneratePerson.selected = null;
+                    }
+                    if(clickedOn((person.row*100) + 100, (person.col*100) + 100, 100, 100)) {
+                        person.row++;
+                        person.col++;
+                        GeneratePerson.personList.set(i, person);
+                        GeneratePerson.selected = null;
+                    }
+                    if(clickedOn((person.row*100), (person.col*100) + 100, 100, 100)) {
+                        person.col++;
+                        GeneratePerson.personList.set(i, person);
+                        GeneratePerson.selected = null;
+                    }
+                    if(clickedOn((person.row*100) - 100, (person.col*100) + 100, 100, 100)) {
+                        person.row--;
+                        person.col++;
+                        GeneratePerson.personList.set(i, person);
+                        GeneratePerson.selected = null;
+                    }
+                    if(clickedOn((person.row*100) - 100, person.col*100, 100, 100)) {
+                        person.row--;
+                        GeneratePerson.personList.set(i, person);
+                        GeneratePerson.selected = null;
+                    }
+                    if(clickedOn((person.row*100) - 100, (person.col*100) - 100, 100, 100)) {
+                        person.row--;
+                        person.col--;
+                        GeneratePerson.personList.set(i, person);
+                        GeneratePerson.selected = null;
+                    }
+                    if(clickedOn((person.row*100), (person.col*100) - 100, 100, 100)) {
+                        person.col--;
+                        GeneratePerson.personList.set(i, person);
+                        GeneratePerson.selected = null;
+                    }
+                    if(clickedOn((person.row*100) + 100, (person.col*100) - 100, 100, 100)) {
+                        person.row++;
+                        person.col--;
+                        GeneratePerson.personList.set(i, person);
+                        GeneratePerson.selected = null;
+                    }
+                }
+                if(person != GeneratePerson.selected) {
+                    person.r = 255;
+                    person.g = 0;
+                    person.b = 0;
                 }
             }
             if (clickedOn(Display.undoX, Display.undoY, Display.undoW, Display.undoH) && turn != 0) {
