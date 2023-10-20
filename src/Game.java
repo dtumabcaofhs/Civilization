@@ -5,6 +5,7 @@ import Tiles.Buildings.Mine;
 import Tiles.Terrain.Forest;
 import Tiles.Terrain.Mountain;
 import Tiles.Terrain.Plain;
+import People.*;
 import processing.core.PApplet;
 
 //ADD "lib/AudioLib" as library to prevent errors.
@@ -40,7 +41,7 @@ public class Game extends PApplet {
         Simulation.simulateOneTick();
         int x = (int)(Math.random()*10);
         if(x < 3){
-            bgm.play();;
+            bgm.play();
         }else if(x < 6){
             bgm2.play();
         }else if(x < 9){
@@ -63,6 +64,7 @@ public class Game extends PApplet {
             Display.displayTile(this);
             Display.displayUI(this);
             Display.displayInfo(this);
+            Display.displayPeople(this);
 
             if(keyPressed && key == ' '){
                 if(holdingNextTurn){
@@ -114,37 +116,100 @@ public class Game extends PApplet {
                 if(buildType instanceof Mine){
                     buildType = null;
                 }else{
-                    Mine mine = new Mine(0,0);
-                    buildType = mine;
+                    buildType = new Mine(0,0);
                 }
             }
             if (clickedOn(1450, 45, 100, 100)) {
                 if(buildType instanceof Farm){
                     buildType = null;
                 }else{
-                    Farm farm = new Farm(0,0);
-                    buildType = farm;
+                    buildType = new Farm(0,0);
                 }
             }
             if (clickedOn(1425, 275, 100, 100)) {
                 if(buildType instanceof Laboratory){
                     buildType = null;
                 }else{
-                    Laboratory lab = new Laboratory(0,0);
-                    buildType = lab;
+                    buildType = new Laboratory(0,0);
                 }
             }
             if (clickedOn(1425, 420, 100, 100)) {
                 if(buildType instanceof Lumberyard){
                     buildType = null;
                 }else{
-                    Lumberyard lumberyard = new Lumberyard(0,0);
-                    buildType = lumberyard;
+                    buildType = new Lumberyard(0,0);
                 }
             }
             if (clickedOn(Display.undoX, Display.undoY, Display.undoW, Display.undoH) && BuildTile.savedInt >= 0 && BuildTile.savedTurn == Game.turn) {
-                System.out.println("undo");
                 BuildTile.undoLast();
+            }
+
+            for (int i = 0; i < GeneratePerson.personList.size(); i++) {
+                Person newPerson = GeneratePerson.personList.get(i);
+                if(clickedOn((newPerson.row*100)+30, (newPerson.col*100) + 30, 40, 40)) {
+                    if(newPerson == GeneratePerson.selected) {
+                        GeneratePerson.selected = null;
+                    } else {
+                        GeneratePerson.selected = newPerson;
+                    }
+                }
+            }
+            for (int i = 0; i < GeneratePerson.personList.size(); i++) {
+                Person person = GeneratePerson.personList.get(i);
+                if(person == GeneratePerson.selected) {
+                    person.r = 0;
+                    person.g = 255;
+                    person.b = 255;
+                    if(clickedOn((person.row*100) + 100, person.col*100, 100, 100)) {
+                        person.row++;
+                        GeneratePerson.personList.set(i, person);
+                        GeneratePerson.selected = null;
+                    }
+                    if(clickedOn((person.row*100) + 100, (person.col*100) + 100, 100, 100)) {
+                        person.row++;
+                        person.col++;
+                        GeneratePerson.personList.set(i, person);
+                        GeneratePerson.selected = null;
+                    }
+                    if(clickedOn((person.row*100), (person.col*100) + 100, 100, 100)) {
+                        person.col++;
+                        GeneratePerson.personList.set(i, person);
+                        GeneratePerson.selected = null;
+                    }
+                    if(clickedOn((person.row*100) - 100, (person.col*100) + 100, 100, 100)) {
+                        person.row--;
+                        person.col++;
+                        GeneratePerson.personList.set(i, person);
+                        GeneratePerson.selected = null;
+                    }
+                    if(clickedOn((person.row*100) - 100, person.col*100, 100, 100)) {
+                        person.row--;
+                        GeneratePerson.personList.set(i, person);
+                        GeneratePerson.selected = null;
+                    }
+                    if(clickedOn((person.row*100) - 100, (person.col*100) - 100, 100, 100)) {
+                        person.row--;
+                        person.col--;
+                        GeneratePerson.personList.set(i, person);
+                        GeneratePerson.selected = null;
+                    }
+                    if(clickedOn((person.row*100), (person.col*100) - 100, 100, 100)) {
+                        person.col--;
+                        GeneratePerson.personList.set(i, person);
+                        GeneratePerson.selected = null;
+                    }
+                    if(clickedOn((person.row*100) + 100, (person.col*100) - 100, 100, 100)) {
+                        person.row++;
+                        person.col--;
+                        GeneratePerson.personList.set(i, person);
+                        GeneratePerson.selected = null;
+                    }
+                }
+                if(person != GeneratePerson.selected) {
+                    person.r = 255;
+                    person.g = 0;
+                    person.b = 0;
+                }
             }
         }
     }

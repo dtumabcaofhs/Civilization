@@ -1,3 +1,4 @@
+import People.*;
 import Tiles.*;
 import Tiles.Buildings.*;
 import Tiles.Terrain.Forest;
@@ -20,19 +21,19 @@ public class Display {
     }
     public static void displayUI(Game window) {
         //mine
-        if(window.buildType instanceof Mine) {window.fill(100,100,100);
+        if(Game.buildType instanceof Mine) {window.fill(100,100,100);
         } else {window.fill(50,50,50);}
         window.rect(1440,170,100,100);
         //farm
-        if(window.buildType instanceof Farm) {window.fill(100,100,100);
+        if(Game.buildType instanceof Farm) {window.fill(100,100,100);
         } else {window.fill(50,50,50);}
         window.rect(1440, 45, 100, 100);
         //lab
-        if(window.buildType instanceof Laboratory) {window.fill(100,100,100);
+        if(Game.buildType instanceof Laboratory) {window.fill(100,100,100);
         } else {window.fill(50,50,50);}
         window.rect(1440,295,100,100);
         //lumber
-        if(window.buildType instanceof Lumberyard) {window.fill(100,100,100);
+        if(Game.buildType instanceof Lumberyard) {window.fill(100,100,100);
         } else {window.fill(50,50,50);}
         window.rect(1440,420,100,100);
 
@@ -174,7 +175,7 @@ public class Display {
         }if(Game.buildType instanceof Lumberyard){
             buildTiles = "Forests";
         }
-        if(!buildTiles.equals("")) {
+        if(!buildTiles.isEmpty()) {
             if(enriched) {
                 window.fill(255,255,0);
                 window.text("Buildable in: " + buildTiles, 905, 700);
@@ -184,6 +185,11 @@ public class Display {
             }
             window.fill(255);
             window.text("Buildable in: ", 905, 700);
+        }
+    }
+    public static void displayPeople(Game window) {
+        for (int i = 0; i < GeneratePerson.personList.size(); i++) {
+            GeneratePerson.personList.get(i).draw(window);
         }
     }
 }
