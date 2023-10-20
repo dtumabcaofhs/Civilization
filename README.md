@@ -1,4 +1,4 @@
-# SmurfCatVillage v0.9.1
+# SmurfCatVillage v0.11
 
 Gain the power to manage a civilization.
 
