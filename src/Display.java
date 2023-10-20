@@ -1,4 +1,3 @@
-import People.*;
 import Tiles.*;
 import Tiles.Buildings.*;
 import Tiles.Terrain.Forest;
@@ -49,9 +48,29 @@ public class Display {
 
         window.fill(255);
         window.text("Build", 1455, 30);
+        if(Simulation.wood >= Farm.cost) {
+            window.fill(0, 255, 0);
+        }else{
+            window.fill(255,0,0);
+        }
         window.text("Farm", 1455, 105);
+        if(Simulation.wood >= Mine.cost) {
+            window.fill(0, 255, 0);
+        }else{
+            window.fill(255,0,0);
+        }
         window.text("Mine", 1455, 230);
+        if(Simulation.stone >= Laboratory.cost) {
+            window.fill(0, 255, 0);
+        }else{
+            window.fill(255,0,0);
+        }
         window.text("Lab.", 1460, 355);
+        if(Simulation.wood >= Lumberyard.cost) {
+            window.fill(0, 255, 0);
+        }else{
+            window.fill(255,0,0);
+        }
         window.text("Lumb.", 1445, 480);
     }
 
@@ -62,25 +81,41 @@ public class Display {
         window.fill(255);
         window.text("Turn: ", 905, 30);
         window.fill(200);
-        window.text("Population: "+Simulation.population, 905, 70);
+        window.text("Population: "+Simulation.population, 905, 80);
         window.fill(255);
-        window.text("Population: ", 905, 70);
-        window.fill(200);
-        window.text("Food: "+Simulation.food, 905, 110);
+        window.text("Population: ", 905, 80);
+        if(Simulation.food >= 100){
+            window.fill(0,255,0);
+        }else{
+            window.fill(255,0,0);
+        }
+        window.text("Food: "+Simulation.food, 905, 130);
         window.fill(255);
-        window.text("Food: ", 905, 110);
-        window.fill(200);
-        window.text("Available Workers: "+Simulation.availWorkerAmt, 905, 150);
+        window.text("Food: ", 905, 130);
+        if(Simulation.availWorkerAmt > 0){
+            window.fill(0,255,0);
+        }else{
+            window.fill(255,0,0);
+        }
+        window.text("Available Workers: "+Simulation.availWorkerAmt, 905, 180);
         window.fill(255);
-        window.text("Available Workers: ", 905, 150);
-        window.fill(200);
-        window.text("Wood: "+Simulation.wood, 905, 190);
+        window.text("Available Workers: ", 905, 180);
+        if(Simulation.wood > 0){
+            window.fill(0,255,0);
+        }else{
+            window.fill(255,0,0);
+        }
+        window.text("Wood: "+Simulation.wood, 905, 230);
         window.fill(255);
-        window.text("Wood: ", 905, 190);
-        window.fill(200);
-        window.text("Stone: "+Simulation.stone, 905, 230);
+        window.text("Wood: ", 905, 230);
+        if(Simulation.stone > 0){
+            window.fill(0,255,0);
+        }else{
+            window.fill(255,0,0);
+        }
+        window.text("Stone: "+Simulation.stone, 905, 280);
         window.fill(255);
-        window.text("Stone: ", 905, 230);
+        window.text("Stone: ", 905, 280);
 
         String type = "";
         if(tileIndex >= 0) {
@@ -105,16 +140,14 @@ public class Display {
 
             if(selectedTile.enriched) {
                 window.fill(255,255,0);
-                window.text("Selected Tile: Enriched " + type, 905, 330);
-                window.fill(255);
-                window.text("Selected Tile: ", 905, 330);
+                window.text("Selected Tile: Enriched " + type, 905, 380);
             }else{
                 window.fill(200);
-                window.text("Selected Tile: " + type, 905, 330);
-                window.fill(255);
-                window.text("Selected Tile: ", 905, 330);
+                window.text("Selected Tile: " + type, 905, 380);
             }
         }
+        window.fill(255);
+        window.text("Selected Tile: ", 905, 380);
 
 
         String buildType = "";
@@ -132,48 +165,62 @@ public class Display {
         window.fill(255);
         window.text("Build: ", 905, 600);
 
-
         int cost = -1;
-        if(Game.buildType instanceof Mine){
-            cost = Mine.cost;
-        }if(Game.buildType instanceof Farm){
-            cost = Farm.cost;
-        }if(Game.buildType instanceof Laboratory){
-            cost = Laboratory.cost;
-        }if(Game.buildType instanceof Lumberyard){
-            cost = Lumberyard.cost;
-        }
-
         String material = "";
         if(Game.buildType instanceof Mine){
+            cost = Mine.cost;
             material = "Wood";
+            window.fill(255,0,0);
+            if(Simulation.wood >= Mine.cost) {
+                window.fill(0, 255, 0);
+            }
         }if(Game.buildType instanceof Farm){
+            cost = Farm.cost;
             material = "Wood";
+            window.fill(255,0,0);
+            if(Simulation.wood >= Farm.cost) {
+                window.fill(0, 255, 0);
+            }
         }if(Game.buildType instanceof Laboratory){
+            cost = Laboratory.cost;
             material = "Stone";
+            window.fill(255,0,0);
+            if(Simulation.stone >= Laboratory.cost) {
+                window.fill(0, 255, 0);
+            }
         }if(Game.buildType instanceof Lumberyard){
+            cost = Lumberyard.cost;
             material = "Wood";
+            window.fill(255,0,0);
+            if(Simulation.wood >= Lumberyard.cost) {
+                window.fill(0, 255, 0);
+            }
         }
 
         if(cost >= 0) {
-            window.fill(200);
             window.text("Cost: " + cost + " " + material, 905, 650);
             window.fill(255);
             window.text("Cost:", 905, 650);
         }
 
+        if(Simulation.wood >= Lumberyard.cost) {
+            window.fill(0, 255, 0);
+        }else{
+            window.fill(255,0,0);
+        }
+
         String buildTiles = "";
         boolean enriched = false;
         if(Game.buildType instanceof Mine){
-            buildTiles = "Enriched Mine";
+            buildTiles = Mine.buildableIn;
             enriched = true;
         }if(Game.buildType instanceof Farm){
-            buildTiles = "Forests, Plains &\nMountains";
+            buildTiles = Farm.buildableIn;
         }if(Game.buildType instanceof Laboratory){
-            buildTiles = "Enriched Forests,\nPlains & Mountains";
+            buildTiles = Laboratory.buildableIn;
             enriched = true;
         }if(Game.buildType instanceof Lumberyard){
-            buildTiles = "Forests";
+            buildTiles = Lumberyard.buildableIn;
         }
         if(!buildTiles.isEmpty()) {
             if(enriched) {

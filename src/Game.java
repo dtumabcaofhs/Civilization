@@ -16,7 +16,7 @@ import Tiles.Tile;
 public class Game extends PApplet {
     // TODO: declare game variables
     boolean inGame;
-    static int turn;
+    static int turn = 1;
     static Tile buildType;
     static int lastTileIndex;
     int holdNextTurnTimer;
@@ -38,7 +38,6 @@ public class Game extends PApplet {
         bgm2 = minim.loadFile("Audio/10 AM  Animal Crossing New Horizons Soundtrack.mp3");
         bgm3 = minim.loadFile("Audio/12 PM  Animal Crossing New Horizons Soundtrack.mp3");
         bgm4 = minim.loadFile("Audio/Gangnam Style.mp3");
-        Simulation.simulateOneTick();
         int x = (int)(Math.random()*10);
         if(x < 3){
             bgm.play();
@@ -90,10 +89,12 @@ public class Game extends PApplet {
         if(!inGame){
             inGame = clickedOn(TitleScreen.playX, TitleScreen.playY, 200, 100);
         }else{
+            boolean tileIsClicked = false;
             for (int i = 0; i < 81; i++) {
                 Tile newTile = GenerateTile.tileList.get(i);
                 lastTileIndex = i;
                 if (clickedOn(newTile.row * 100, newTile.col * 100, 100, 100)) {
+                    tileIsClicked = true;
                     newTile.selected = true;
                     Display.tileIndex = i;
                     if (newTile instanceof Mountain && newTile.enriched && buildType instanceof Mine && Simulation.availWorkerAmt > 0 && Simulation.wood >= Mine.cost) {
@@ -111,6 +112,9 @@ public class Game extends PApplet {
                 }else{
                     newTile.selected = false;
                 }
+            }
+            if(!tileIsClicked){
+                Display.tileIndex = -1;
             }
             if (clickedOn(1450, 170, 100, 100)) {
                 if(buildType instanceof Mine){

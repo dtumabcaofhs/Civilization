@@ -4,6 +4,7 @@ import Tiles.Tile;
 
 public class Farm extends Tile {
     public static int cost = 10;
+    public static String buildableIn = "Forests, Plains &\nMountains";
     public Farm(int row, int col) {
         super(row, col);
         r = 0;

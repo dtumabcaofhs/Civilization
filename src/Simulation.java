@@ -9,9 +9,10 @@ public class Simulation {
     public static int availWorkerAmt;
     public static int food = 500;
     public static int wood = 20;
-    public static int stone = 0;
+    public static int stone = 20;
 
     public static void simulateOneTick() {
+        wood+=1;
         int rand = (int) (Math.random() * 5 + 1);
         availWorkerAmt = maxWorkerAmt;
         maxWorkerAmt = 2 + population/5000;
