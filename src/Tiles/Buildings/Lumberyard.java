@@ -3,6 +3,7 @@ package Tiles.Buildings;
 import Tiles.Tile;
 
 public class Lumberyard extends Tile {
+    public static int cost = 5;
     public Lumberyard(int row, int col) {
         super(row, col);
         r = 139;

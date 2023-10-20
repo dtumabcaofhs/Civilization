@@ -24,6 +24,7 @@ public class Tile {
         window.noStroke();
         window.stroke(0);
         if(selected) {
+            window.brightness(50);
             window.fill(rB,gB,bB);
         }else{
             window.fill(r,g,b);
@@ -44,7 +45,7 @@ public class Tile {
                 rB = (int) (r * change);
             }
 
-            if(g * change > 255){
+            if(this.g * change > 255){
                 gB = 255;
             }else{
                 gB = (int)(g * change);

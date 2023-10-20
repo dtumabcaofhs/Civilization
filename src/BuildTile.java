@@ -6,7 +6,7 @@ import Tiles.Buildings.Mine;
 
 public class BuildTile {
     public static Tile savedOldTile;
-    public static int savedInt,savedTurn;
+    public static int savedInt = -1,savedTurn;
     public static void buildMine(int i){
         Tile oldTile = GenerateTile.tileList.get(i);
         Mine mine = new Mine(oldTile.row, oldTile.col);
@@ -52,9 +52,7 @@ public class BuildTile {
         savedTurn = Game.turn;
     }
     public static void undoLast() {
-        if(savedInt >= 0 && savedTurn == Game.turn) {
-            GenerateTile.tileList.set(savedInt, savedOldTile);
-            Simulation.availWorkerAmt++;
-        }
+        GenerateTile.tileList.set(savedInt, savedOldTile);
+        Simulation.availWorkerAmt++;
     }
 }

@@ -1,4 +1,7 @@
 import Tiles.*;
+import Tiles.Buildings.Farm;
+import Tiles.Buildings.Lumberyard;
+import Tiles.Buildings.Mine;
 
 public class Simulation {
     public static int population = 500;
@@ -19,9 +22,10 @@ public class Simulation {
         }
         for (int i = 0; i < GenerateTile.tileList.size(); i++) {
             Tile currTile = GenerateTile.tileList.get(i);
-            if(currTile.value == 5) { food += 30; }
-            if(currTile.value == 7) { wood += 2; }
-            if(currTile.value == 4 ){ stone += 2; }
+            if(currTile instanceof Farm) { food += 30; }
+            if(currTile instanceof Lumberyard) { wood += 2; }
+            if(currTile instanceof Mine){ stone += 2; }
         }
+        Game.turn++;
     }
 }

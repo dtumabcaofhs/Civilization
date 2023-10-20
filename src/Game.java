@@ -1,3 +1,10 @@
+import Tiles.Buildings.Farm;
+import Tiles.Buildings.Laboratory;
+import Tiles.Buildings.Lumberyard;
+import Tiles.Buildings.Mine;
+import Tiles.Terrain.Forest;
+import Tiles.Terrain.Mountain;
+import Tiles.Terrain.Plain;
 import processing.core.PApplet;
 
 //ADD "lib/AudioLib" as library to prevent errors.
@@ -9,10 +16,12 @@ public class Game extends PApplet {
     // TODO: declare game variables
     boolean inGame;
     static int turn;
-    int buildType;
+    static Tile buildType;
     static int lastTileIndex;
+    int holdNextTurnTimer;
+    boolean holdingNextTurn = false;
     Minim minim;
-    AudioPlayer bg;
+    AudioPlayer bgm,bgm2,bgm3,bgm4;
     public void settings() {
         size(1600, 900);   // set the window size
     }
@@ -24,9 +33,21 @@ public class Game extends PApplet {
         GenerateTile.generateTiles();
 
         minim = new Minim(this);
-        bg = minim.loadFile("Audio/y2mate.com - PSY  Gangnam Style Audio.mp3");
-        bg.play();
+        bgm = minim.loadFile("Audio/9 AM  Animal Crossing New Horizons Soundtrack.mp3");
+        bgm2 = minim.loadFile("Audio/10 AM  Animal Crossing New Horizons Soundtrack.mp3");
+        bgm3 = minim.loadFile("Audio/12 PM  Animal Crossing New Horizons Soundtrack.mp3");
+        bgm4 = minim.loadFile("Audio/Gangnam Style.mp3");
         Simulation.simulateOneTick();
+        int x = (int)(Math.random()*10);
+        if(x < 3){
+            bgm.play();;
+        }else if(x < 6){
+            bgm2.play();
+        }else if(x < 9){
+            bgm3.play();
+        }else{
+            bgm4.play();
+        }
     }
 
     /***
@@ -42,6 +63,19 @@ public class Game extends PApplet {
             Display.displayTile(this);
             Display.displayUI(this);
             Display.displayInfo(this);
+
+            if(keyPressed && key == ' '){
+                if(holdingNextTurn){
+                    Simulation.simulateOneTick();
+                }
+                holdNextTurnTimer++;
+                if(holdNextTurnTimer >= 50){
+                    holdingNextTurn = true;
+                }
+            }else{
+                holdingNextTurn = false;
+                holdNextTurnTimer = 0;
+            }
         }
     }
 
@@ -60,16 +94,16 @@ public class Game extends PApplet {
                 if (clickedOn(newTile.row * 100, newTile.col * 100, 100, 100)) {
                     newTile.selected = true;
                     Display.tileIndex = i;
-                    if (newTile.value == 2 && newTile.enriched && buildType == 4 && Simulation.availWorkerAmt > 0 && Simulation.wood >= 30) {
+                    if (newTile instanceof Mountain && newTile.enriched && buildType instanceof Mine && Simulation.availWorkerAmt > 0 && Simulation.wood >= Mine.cost) {
                         BuildTile.buildMine(i);
                     }
-                    if (newTile.value < 3 && buildType == 5 && Simulation.wood >= 10 && Simulation.availWorkerAmt > 0) {
+                    if ((newTile instanceof Forest || newTile instanceof Plain || newTile instanceof Mountain) && buildType instanceof Farm && Simulation.wood >= Farm.cost && Simulation.availWorkerAmt > 0) {
                         BuildTile.buildFarm(i);
                     }
-                    if (newTile.value < 3 && newTile.enriched && buildType == 6 && Simulation.stone >= 100 && Simulation.availWorkerAmt > 0) {
+                    if ((newTile instanceof Forest || newTile instanceof Plain || newTile instanceof Mountain) && newTile.enriched && buildType instanceof Laboratory && Simulation.stone >= Laboratory.cost && Simulation.availWorkerAmt > 0) {
                         BuildTile.buildLaboratory(i);
                     }
-                    if (newTile.value == 0 && buildType == 7 && Simulation.wood >= 5 && Simulation.availWorkerAmt > 0) {
+                    if (newTile instanceof Forest && buildType instanceof Lumberyard && Simulation.wood >= Lumberyard.cost && Simulation.availWorkerAmt > 0) {
                         BuildTile.buildLumberyard(i);
                     }
                 }else{
@@ -77,43 +111,47 @@ public class Game extends PApplet {
                 }
             }
             if (clickedOn(1450, 170, 100, 100)) {
-                if(buildType == 4){
-                    buildType = 0;
+                if(buildType instanceof Mine){
+                    buildType = null;
                 }else{
-                    buildType = 4;
+                    Mine mine = new Mine(0,0);
+                    buildType = mine;
                 }
             }
             if (clickedOn(1450, 45, 100, 100)) {
-                if(buildType == 5){
-                    buildType = 0;
+                if(buildType instanceof Farm){
+                    buildType = null;
                 }else{
-                    buildType = 5;
+                    Farm farm = new Farm(0,0);
+                    buildType = farm;
                 }
             }
             if (clickedOn(1425, 275, 100, 100)) {
-                if(buildType == 6){
-                    buildType = 0;
+                if(buildType instanceof Laboratory){
+                    buildType = null;
                 }else{
-                    buildType = 6;
+                    Laboratory lab = new Laboratory(0,0);
+                    buildType = lab;
                 }
             }
             if (clickedOn(1425, 420, 100, 100)) {
-                if(buildType == 7){
-                    buildType = 0;
+                if(buildType instanceof Lumberyard){
+                    buildType = null;
                 }else{
-                    buildType = 7;
+                    Lumberyard lumberyard = new Lumberyard(0,0);
+                    buildType = lumberyard;
                 }
             }
-            if (clickedOn(Display.undoX, Display.undoY, Display.undoW, Display.undoH) && turn != 0) {
+            if (clickedOn(Display.undoX, Display.undoY, Display.undoW, Display.undoH) && BuildTile.savedInt >= 0 && BuildTile.savedTurn == Game.turn) {
+                System.out.println("undo");
                 BuildTile.undoLast();
             }
         }
     }
 
     public void keyReleased(){
-        if (key == ' ') {
+        if (key == ' ' && !holdingNextTurn) {
             Simulation.simulateOneTick();
-            turn++;
         }
     }
 
