@@ -101,8 +101,9 @@ public class Display {
                 foodSourceCount++;
             }
         }
-        nextFood += foodSourceCount*30;
-        if(nextFood == 0){
+        if(Simulation.population > 0){
+            nextFood += foodSourceCount*30;
+        }if(nextFood == 0){
             window.fill(255,0,0);
         }else{
             window.fill(0,255,0);
@@ -264,9 +265,9 @@ public class Display {
         }
 
         if(workersNeeded >= 0) {
-            window.text("Workers needed to build: " + workersNeeded, 905, 700);
+            window.text("Workers needed: " + workersNeeded, 905, 700);
             window.fill(255);
-            window.text("Workers needed to build:", 905, 700);
+            window.text("Workers needed:", 905, 700);
         }
 
         if(Simulation.wood >= Lumberyard.cost) {
