@@ -6,16 +6,18 @@ import Tiles.Buildings.Mine;
 
 public class BuildTile {
     public static Tile savedOldTile;
-    public static int savedInt,savedTurn,savedWood,savedStone;
+    public static int savedTileIndex,savedTurn,savedWood,savedStone,savedWorkerNum;
     public static void buildMine(int i){
         Tile oldTile = GenerateTile.tileList.get(i);
         Mine mine = new Mine(oldTile.row, oldTile.col);
         GenerateTile.tileList.set(i, mine);
-        Simulation.availWorkerAmt--;
+        savedWorkerNum = Simulation.workerAmt;
+        Simulation.workerAmt-=Mine.workersNeeded;
         savedWood = Simulation.wood;
-        Simulation.wood -= 30;
+        savedStone = Simulation.wood;
+        Simulation.wood -= Mine.cost;
         savedOldTile = oldTile;
-        savedInt = i;
+        savedTileIndex = i;
         savedTurn = Game.turn;
     }
 
@@ -24,11 +26,13 @@ public class BuildTile {
         Farm farm = new Farm(oldTile.row, oldTile.col);
         farm.enriched = oldTile.enriched;
         GenerateTile.tileList.set(i, farm);
-        Simulation.availWorkerAmt--;
+        savedWorkerNum = Simulation.workerAmt;
+        Simulation.workerAmt-=Farm.workersNeeded;
         savedWood = Simulation.wood;
-        Simulation.wood -= 10;
+        savedStone = Simulation.wood;
+        Simulation.wood -= Farm.cost;
         savedOldTile = oldTile;
-        savedInt = i;
+        savedTileIndex = i;
         savedTurn = Game.turn;
     }
     public static void buildLaboratory(int i){
@@ -36,12 +40,13 @@ public class BuildTile {
         Laboratory laboratory = new Laboratory(oldTile.row, oldTile.col);
         laboratory.enriched = oldTile.enriched;
         GenerateTile.tileList.set(i, laboratory);
+        savedWorkerNum = Simulation.workerAmt;
+        Simulation.workerAmt-=Laboratory.workersNeeded;
         savedWood = Simulation.wood;
         savedStone = Simulation.stone;
-        Simulation.stone -= 100;
-        Simulation.availWorkerAmt--;
+        Simulation.stone -= Laboratory.cost;
         savedOldTile = oldTile;
-        savedInt = i;
+        savedTileIndex = i;
         savedTurn = Game.turn;
     }
     public static void buildLumberyard(int i){
@@ -49,19 +54,23 @@ public class BuildTile {
         Lumberyard lumberyard = new Lumberyard(oldTile.row, oldTile.col);
         lumberyard.enriched = oldTile.enriched;
         GenerateTile.tileList.set(i, lumberyard);
-        Simulation.availWorkerAmt--;
+        savedWorkerNum = Simulation.workerAmt;
+        Simulation.workerAmt-=Lumberyard.workersNeeded;
         savedWood = Simulation.wood;
-        Simulation.wood -= 8;
+        savedStone = Simulation.stone;
+        Simulation.wood -= Lumberyard.cost;
         savedOldTile = oldTile;
-        savedInt = i;
+        savedTileIndex = i;
         savedTurn = Game.turn;
     }
+
     public static void undoLast() {
-        if(savedInt >= 0 && savedTurn == Game.turn) {
-            GenerateTile.tileList.set(savedInt, savedOldTile);
-            Simulation.availWorkerAmt++;
+        if(savedTileIndex >= 0 && savedTurn == Game.turn) {
+            GenerateTile.tileList.set(savedTileIndex, savedOldTile);
+            Simulation.workerAmt=savedWorkerNum;
             Simulation.stone = savedStone;
             Simulation.wood = savedWood;
+            savedTurn = -1;
         }
     }
 }

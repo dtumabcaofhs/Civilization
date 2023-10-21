@@ -3,7 +3,8 @@ package Tiles.Buildings;
 import Tiles.Tile;
 
 public class Laboratory extends Tile {
-    public static int cost = 100, buildWorkerAmt;
+    public static int workersNeeded=10;
+    public static int cost = 100;
     public static String buildableIn = "Enriched Forests,\nPlains & Mountains";
     public Laboratory(int row, int col) {
         super(row, col);

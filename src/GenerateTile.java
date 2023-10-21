@@ -14,7 +14,7 @@ public class GenerateTile {
         return rand < 0.2;
     }
 
-    public static void generateTiles() {
+    public static void generateTerrain() {
         for (int row = 0; row < 9; row++) {
             for (int col = 0; col < 9; col++) {
                 int rand = (int)(Math.random()*3);
@@ -34,7 +34,6 @@ public class GenerateTile {
                     mountain.enriched = randomizeEnrichment();
                     tileList.add(mountain);
                 } else if (rand == 3){
-                    System.out.println("sc");
                     City city = new City(row, col);
                     city.enriched = false;
                     tileList.add(city);

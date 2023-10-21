@@ -39,7 +39,7 @@ public class Display {
         //reset button
         window.fill(255,0,0);
         window.rect(undoX, undoY, undoW, undoH);
-        if(BuildTile.savedInt >= 0 && BuildTile.savedTurn == Game.turn) {
+        if(BuildTile.savedTileIndex >= 0 && BuildTile.savedTurn == Game.turn) {
             window.fill(255);
         }else{
             window.fill(125);
@@ -48,25 +48,25 @@ public class Display {
 
         window.fill(255);
         window.text("Build", 1455, 30);
-        if(Simulation.wood >= Farm.cost) {
+        if(Simulation.wood >= Farm.cost && Simulation.workerAmt >= Farm.workersNeeded) {
             window.fill(0, 255, 0);
         }else{
             window.fill(255,0,0);
         }
         window.text("Farm", 1455, 105);
-        if(Simulation.wood >= Mine.cost) {
+        if(Simulation.wood >= Mine.cost && Simulation.workerAmt >= Mine.workersNeeded) {
             window.fill(0, 255, 0);
         }else{
             window.fill(255,0,0);
         }
         window.text("Mine", 1455, 230);
-        if(Simulation.stone >= Laboratory.cost) {
+        if(Simulation.stone >= Laboratory.cost && Simulation.workerAmt >= Laboratory.workersNeeded) {
             window.fill(0, 255, 0);
         }else{
             window.fill(255,0,0);
         }
         window.text("Lab.", 1460, 355);
-        if(Simulation.wood >= Lumberyard.cost) {
+        if(Simulation.wood >= Lumberyard.cost && Simulation.workerAmt >= Lumberyard.workersNeeded) {
             window.fill(0, 255, 0);
         }else{
             window.fill(255,0,0);
@@ -80,11 +80,37 @@ public class Display {
         window.text("Turn: "+Game.turn, 905, 30);
         window.fill(255);
         window.text("Turn: ", 905, 30);
-        window.fill(200);
+
+        if(Simulation.population > 0){
+            window.fill(0,255,0);
+        }else{
+            window.fill(255,0,0);
+        }
         window.text("Population: "+Simulation.population, 905, 80);
         window.fill(255);
         window.text("Population: ", 905, 80);
-        if(Simulation.food >= 100){
+
+        int nextFood = Simulation.food - (Simulation.population * Simulation.personFoodConsumption);
+        if(nextFood < 0) {
+            nextFood = 0;
+        }
+        int foodSourceCount = 0;
+        for (int i = 0; i < GenerateTile.tileList.size(); i++) {
+            Tile currTile = GenerateTile.tileList.get(i);
+            if (currTile instanceof Farm) {
+                foodSourceCount++;
+            }
+        }
+        nextFood += foodSourceCount*30;
+        if(nextFood == 0){
+            window.fill(255,0,0);
+        }else{
+            window.fill(0,255,0);
+        }
+        window.text("Food: "+Simulation.food+"   Next food: "+nextFood, 905, 130);
+        window.fill(255);
+        window.text("Food: "+Simulation.food+"   Next food: ", 905, 130);
+        if(Simulation.food > 0){
             window.fill(0,255,0);
         }else{
             window.fill(255,0,0);
@@ -92,14 +118,18 @@ public class Display {
         window.text("Food: "+Simulation.food, 905, 130);
         window.fill(255);
         window.text("Food: ", 905, 130);
-        if(Simulation.availWorkerAmt > 0){
+
+
+        if(Simulation.workerAmt > 0){
             window.fill(0,255,0);
         }else{
             window.fill(255,0,0);
         }
-        window.text("Available Workers: "+Simulation.availWorkerAmt, 905, 180);
+        window.text("Available Workers: "+Simulation.workerAmt, 905, 180);
         window.fill(255);
         window.text("Available Workers: ", 905, 180);
+
+
         if(Simulation.wood > 0){
             window.fill(0,255,0);
         }else{
@@ -108,6 +138,8 @@ public class Display {
         window.text("Wood: "+Simulation.wood, 905, 230);
         window.fill(255);
         window.text("Wood: ", 905, 230);
+
+
         if(Simulation.stone > 0){
             window.fill(0,255,0);
         }else{
@@ -116,6 +148,7 @@ public class Display {
         window.text("Stone: "+Simulation.stone, 905, 280);
         window.fill(255);
         window.text("Stone: ", 905, 280);
+
 
         String type = "";
         if(tileIndex >= 0) {
@@ -203,6 +236,39 @@ public class Display {
             window.text("Cost:", 905, 650);
         }
 
+        int workersNeeded = -1;
+        if(Game.buildType instanceof Mine){
+            workersNeeded = Mine.workersNeeded;
+            window.fill(255,0,0);
+            if(Simulation.workerAmt >= Mine.workersNeeded) {
+                window.fill(0, 255, 0);
+            }
+        }if(Game.buildType instanceof Farm){
+            workersNeeded = Farm.workersNeeded;
+            window.fill(255,0,0);
+            if(Simulation.workerAmt >= Farm.workersNeeded) {
+                window.fill(0, 255, 0);
+            }
+        }if(Game.buildType instanceof Laboratory){
+            workersNeeded = Laboratory.workersNeeded;
+            window.fill(255,0,0);
+            if(Simulation.workerAmt >= Laboratory.workersNeeded) {
+                window.fill(0, 255, 0);
+            }
+        }if(Game.buildType instanceof Lumberyard){
+            workersNeeded = Lumberyard.workersNeeded;
+            window.fill(255,0,0);
+            if(Simulation.workerAmt >= Lumberyard.workersNeeded) {
+                window.fill(0, 255, 0);
+            }
+        }
+
+        if(workersNeeded >= 0) {
+            window.text("Workers needed to build: " + workersNeeded, 905, 700);
+            window.fill(255);
+            window.text("Workers needed to build:", 905, 700);
+        }
+
         if(Simulation.wood >= Lumberyard.cost) {
             window.fill(0, 255, 0);
         }else{
@@ -225,13 +291,13 @@ public class Display {
         if(!buildTiles.isEmpty()) {
             if(enriched) {
                 window.fill(255,255,0);
-                window.text("Buildable in: " + buildTiles, 905, 700);
+                window.text("Buildable in: " + buildTiles, 905, 750);
             }else{
                 window.fill(200);
-                window.text("Buildable in: " + buildTiles, 905, 700);
+                window.text("Buildable in: " + buildTiles, 905, 750);
             }
             window.fill(255);
-            window.text("Buildable in: ", 905, 700);
+            window.text("Buildable in: ", 905, 750);
         }
     }
     public static void displayPeople(Game window) {

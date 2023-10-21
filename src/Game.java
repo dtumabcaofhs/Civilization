@@ -1,17 +1,11 @@
-import Tiles.Buildings.Farm;
-import Tiles.Buildings.Laboratory;
-import Tiles.Buildings.Lumberyard;
-import Tiles.Buildings.Mine;
-import Tiles.Terrain.Forest;
-import Tiles.Terrain.Mountain;
-import Tiles.Terrain.Plain;
+import Tiles.*;
+import Tiles.Buildings.*;
+import Tiles.Terrain.*;
 import People.*;
-import processing.core.PApplet;
 
-//ADD "lib/AudioLib" as library to prevent errors.
+import processing.core.PApplet;
 import ddf.minim.Minim;
 import ddf.minim.AudioPlayer;
-import Tiles.Tile;
 
 public class Game extends PApplet {
     // TODO: declare game variables
@@ -31,22 +25,29 @@ public class Game extends PApplet {
         // TODO: initialize game variables
         surface.setTitle("Smurf Cat Village");
         inGame = false;
-        GenerateTile.generateTiles();
+        GenerateTile.generateTerrain();
 
         minim = new Minim(this);
         bgm = minim.loadFile("Audio/9 AM  Animal Crossing New Horizons Soundtrack.mp3");
         bgm2 = minim.loadFile("Audio/10 AM  Animal Crossing New Horizons Soundtrack.mp3");
         bgm3 = minim.loadFile("Audio/12 PM  Animal Crossing New Horizons Soundtrack.mp3");
         bgm4 = minim.loadFile("Audio/Gangnam Style.mp3");
-        int x = (int)(Math.random()*10);
-        if(x < 3){
-            bgm.play();
-        }else if(x < 6){
-            bgm2.play();
-        }else if(x < 9){
-            bgm3.play();
-        }else{
-            bgm4.play();
+
+        if(!bgm.isPlaying() && !bgm2.isPlaying() && !bgm3.isPlaying() && !bgm4.isPlaying()) {
+            int x = (int) (Math.random() * 10);
+            if (x < 3) {
+                bgm.rewind();
+                bgm.play();
+            } else if (x < 6) {
+                bgm2.rewind();
+                bgm2.play();
+            } else if (x < 9) {
+                bgm3.rewind();
+                bgm3.play();
+            } else {
+                bgm4.rewind();
+                bgm4.play();
+            }
         }
     }
 
@@ -60,6 +61,8 @@ public class Game extends PApplet {
             TitleScreen.draw(this);
         }
         if(inGame){
+
+
             Display.displayTile(this);
             Display.displayUI(this);
             Display.displayInfo(this);
@@ -97,16 +100,16 @@ public class Game extends PApplet {
                     tileIsClicked = true;
                     newTile.selected = true;
                     Display.tileIndex = i;
-                    if (newTile instanceof Mountain && newTile.enriched && buildType instanceof Mine && Simulation.availWorkerAmt > 0 && Simulation.wood >= Mine.cost) {
+                    if (newTile instanceof Mountain && newTile.enriched && buildType instanceof Mine && Simulation.workerAmt >= Mine.workersNeeded && Simulation.wood >= Mine.cost) {
                         BuildTile.buildMine(i);
                     }
-                    if ((newTile instanceof Forest || newTile instanceof Plain || newTile instanceof Mountain) && buildType instanceof Farm && Simulation.wood >= Farm.cost && Simulation.availWorkerAmt > 0) {
+                    if (!(newTile instanceof City || newTile instanceof Farm) && buildType instanceof Farm && Simulation.workerAmt >= Farm.workersNeeded &&Simulation.wood >= Farm.cost) {
                         BuildTile.buildFarm(i);
                     }
-                    if ((newTile instanceof Forest || newTile instanceof Plain || newTile instanceof Mountain) && newTile.enriched && buildType instanceof Laboratory && Simulation.stone >= Laboratory.cost && Simulation.availWorkerAmt > 0) {
+                    if (!(newTile instanceof City || newTile instanceof Laboratory) && newTile.enriched && buildType instanceof Laboratory && Simulation.workerAmt >= Laboratory.workersNeeded && Simulation.stone >= Laboratory.cost) {
                         BuildTile.buildLaboratory(i);
                     }
-                    if (newTile instanceof Forest && buildType instanceof Lumberyard && Simulation.wood >= Lumberyard.cost && Simulation.availWorkerAmt > 0) {
+                    if (newTile instanceof Forest && buildType instanceof Lumberyard && Simulation.workerAmt >= Lumberyard.workersNeeded && Simulation.wood >= Lumberyard.cost) {
                         BuildTile.buildLumberyard(i);
                     }
                 }else{
@@ -144,7 +147,7 @@ public class Game extends PApplet {
                     buildType = new Lumberyard(0,0);
                 }
             }
-            if (clickedOn(Display.undoX, Display.undoY, Display.undoW, Display.undoH) && BuildTile.savedInt >= 0 && BuildTile.savedTurn == Game.turn) {
+            if (clickedOn(Display.undoX, Display.undoY, Display.undoW, Display.undoH) && BuildTile.savedTileIndex >= 0 && BuildTile.savedTurn == Game.turn) {
                 BuildTile.undoLast();
             }
 

@@ -3,8 +3,9 @@ package Tiles.Buildings;
 import Tiles.Tile;
 
 public class Mine extends Tile {
-    public static int cost = 30, buildWorkerAmt ;
-    public static String buildableIn = "Forests, Plains &\nMountains";
+    public static int workersNeeded=20;
+    public static int cost = 30;
+    public static String buildableIn = "Enriched Mountains";
     public Mine(int row, int col) {
         super(row, col);
         r = 255;

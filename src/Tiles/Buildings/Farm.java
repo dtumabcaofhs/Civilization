@@ -3,6 +3,7 @@ package Tiles.Buildings;
 import Tiles.Tile;
 
 public class Farm extends Tile {
+    public static int workersNeeded=10;
     public static int cost = 10;
     public static String buildableIn = "Forests, Plains &\nMountains";
     public Farm(int row, int col) {
