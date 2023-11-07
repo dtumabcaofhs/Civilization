@@ -1,9 +1,9 @@
-# SmurfCatVillage v0.12
-Gain the power to manage a civilization. 
+# SmurfCatVillage? v0.13
+Gain the power to manage a civilization.
 
 Project management: https://github.com/users/dtumabcaofhs/projects/1
 
-## Guide obj = new Guide();
+## Guide
 #### Turns
 * Press 'Space' to increment turns
 * Hold 'Space' to increment turns automatically

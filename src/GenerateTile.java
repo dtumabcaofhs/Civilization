@@ -3,7 +3,6 @@ import Tiles.Buildings.City;
 import Tiles.Terrain.Forest;
 import Tiles.Terrain.Mountain;
 import Tiles.Terrain.Plain;
-
 import java.util.ArrayList;
 
 public class GenerateTile {

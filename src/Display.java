@@ -11,14 +11,14 @@ public class Display {
             Tile newTile = GenerateTile.tileList.get(i);
             newTile.draw(window);
         }
+    }
+    public static void displayUI(Game window) {
         //info window
         window.fill(0,0,55);
         window.rect(900,0,500,900);
         //build window
         window.fill(150,75,0);
         window.rect(1400,0,200,900);
-    }
-    public static void displayUI(Game window) {
         //mine
         if(Game.buildType instanceof Mine) {window.fill(100,100,100);
         } else {window.fill(50,50,50);}

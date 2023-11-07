@@ -1,10 +1,12 @@
 package Tiles.Terrain;
 
 import Tiles.Tile;
+import processing.core.PImage;
 
 public class Mountain extends Tile {
+    public static PImage img;
     public Mountain(int row, int col) {
-        super(row, col);
+        super(row, col, img);
         r = 105;
         g = 105;
         b = 105;

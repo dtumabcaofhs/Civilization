@@ -22,8 +22,15 @@ public class Game extends PApplet {
     }
 
     public void setup() {
-        // TODO: initialize game variables
-        surface.setTitle("Smurf Cat Village");
+        surface.setTitle("Name undecided even though the title screen says 'civilization'"); //App titlebar name
+
+        City.img = loadImage("Images/city.jpg");
+        Farm.img = loadImage("Images/city.jpg");
+
+        Forest.img = loadImage("Images/forest.jpg");
+        Mountain.img = loadImage("Images/wawwaw.jpg");
+        Plain.img = loadImage("Images/grass.png");
+
         inGame = false;
         GenerateTile.generateTerrain();
 
@@ -33,22 +40,9 @@ public class Game extends PApplet {
         bgm3 = minim.loadFile("Audio/12 PM  Animal Crossing New Horizons Soundtrack.mp3");
         bgm4 = minim.loadFile("Audio/Gangnam Style.mp3");
 
-        if(!bgm.isPlaying() && !bgm2.isPlaying() && !bgm3.isPlaying() && !bgm4.isPlaying()) {
-            int x = (int) (Math.random() * 10);
-            if (x < 3) {
-                bgm.rewind();
-                bgm.play();
-            } else if (x < 6) {
-                bgm2.rewind();
-                bgm2.play();
-            } else if (x < 9) {
-                bgm3.rewind();
-                bgm3.play();
-            } else {
-                bgm4.rewind();
-                bgm4.play();
-            }
-        }
+        chooseBGM();
+
+        TitleScreen.logo = loadImage("Images/civilizationLogo.png");
     }
 
     /***
@@ -61,8 +55,6 @@ public class Game extends PApplet {
             TitleScreen.draw(this);
         }
         if(inGame){
-
-
             Display.displayTile(this);
             Display.displayUI(this);
             Display.displayInfo(this);
@@ -73,7 +65,7 @@ public class Game extends PApplet {
                     Simulation.simulateOneTick();
                 }
                 holdNextTurnTimer++;
-                if(holdNextTurnTimer >= 50){
+                if(holdNextTurnTimer >= 10){
                     holdingNextTurn = true;
                 }
             }else{
@@ -224,6 +216,25 @@ public class Game extends PApplet {
     public void keyReleased(){
         if (key == ' ' && !holdingNextTurn) {
             Simulation.simulateOneTick();
+        }
+    }
+
+    public void chooseBGM(){
+        if(!bgm.isPlaying() && !bgm2.isPlaying() && !bgm3.isPlaying() && !bgm4.isPlaying()) {
+            int x = (int) (Math.random() * 10);
+            if (x < 3) {
+                bgm.rewind();
+                bgm.play();
+            } else if (x < 6) {
+                bgm2.rewind();
+                bgm2.play();
+            } else if (x < 9) {
+                bgm3.rewind();
+                bgm3.play();
+            } else {
+                bgm4.rewind();
+                bgm4.play();
+            }
         }
     }
 

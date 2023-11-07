@@ -1,35 +1,57 @@
 package Tiles;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Tile {
+    protected PImage img;
     public int value;
     public int row, col;
     protected int r,g,b;
     protected int rB,gB,bB;
     public boolean enriched;
     public boolean selected;
-    private boolean brightCalculated = false;
+    boolean brightCalculated = false;
+    boolean useImages = true;
 
-    public Tile(int row, int col){
+    public Tile(int row, int col, PImage img){
         this.row = row;
         this.col = col;
+        this.img = img;
     }
 
     public void draw(PApplet window){
-        if(!brightCalculated){
+        if (!brightCalculated) {
             calcBrightness();
             brightCalculated = true;
         }
+
         window.noStroke();
-        window.stroke(0);
+
         if(selected) {
-            window.brightness(50);
-            window.fill(rB,gB,bB);
+            if(img == null || !useImages) {
+                window.fill(rB, gB, bB);
+            }else{
+                window.tint(255,100);
+            }
         }else{
-            window.fill(r,g,b);
+            if(img == null || !useImages) {
+                window.fill(r, g, b);
+            }else{
+                window.noTint();
+            }
         }
-        window.rect(row * 100, col * 100, 100, 100);
+
+        if(useImages){
+            if (img != null) {
+                window.image(img, row * 100, col * 100, 100, 100);
+            }else{
+                window.rect(row * 100, col * 100, 100, 100);
+            }
+        }else{
+            window.rect(row * 100, col * 100, 100, 100);
+        }
+
         if(enriched) {
             window.fill(255,255,0);
             window.ellipse(row*100 + 80,col*100 + 20,20,20);
