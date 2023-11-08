@@ -14,6 +14,7 @@ public class GenerateTile {
     }
 
     public static void generateTerrain() {
+        tileList.clear();
         for (int row = 0; row < 9; row++) {
             for (int col = 0; col < 9; col++) {
                 int rand = (int)(Math.random()*3);

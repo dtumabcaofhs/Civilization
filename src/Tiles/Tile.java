@@ -6,10 +6,12 @@ import processing.core.PImage;
 public class Tile {
     protected PImage img;
     public int value;
-    public int row, col;
+    public int row, col, x, y;
+    public static int w = 100, h = 100;
     protected int r,g,b;
     protected int rB,gB,bB;
     public boolean enriched;
+    public int buildAreaEnrichmentNeed; //0: dont care 1: enriched 2: not enriched
     public boolean selected;
     boolean brightCalculated = false;
     boolean useImages = true;
@@ -17,44 +19,53 @@ public class Tile {
     public Tile(int row, int col, PImage img){
         this.row = row;
         this.col = col;
+
+        this.x = row * w;
+        this.y = col * h;
         this.img = img;
     }
 
-    public void draw(PApplet window){
+    public void draw(PApplet window, boolean canBuildOnHover, Tile buildType){
         if (!brightCalculated) {
             calcBrightness();
             brightCalculated = true;
         }
 
-        window.noStroke();
-
         if(selected) {
-            if(img == null || !useImages) {
+            if (img == null || !useImages) {
                 window.fill(rB, gB, bB);
+            } else if(buildType != null){
+                if (canBuildOnHover) {
+                    window.tint(0,255,0, 150);
+                }else{
+                    window.tint(255,0,0, 150);
+                }
             }else{
-                window.tint(255,100);
+                window.tint(255, 150);
             }
         }else{
-            if(img == null || !useImages) {
+            if (img == null || !useImages) {
                 window.fill(r, g, b);
-            }else{
+            } else {
                 window.noTint();
             }
         }
 
         if(useImages){
             if (img != null) {
-                window.image(img, row * 100, col * 100, 100, 100);
+                window.image(img, x, y, w, h);
             }else{
-                window.rect(row * 100, col * 100, 100, 100);
+                window.rect(x, y, w, h);
             }
         }else{
-            window.rect(row * 100, col * 100, 100, 100);
+            window.rect(x, y, w, h);
         }
 
         if(enriched) {
+            window.noStroke();
             window.fill(255,255,0);
-            window.ellipse(row*100 + 80,col*100 + 20,20,20);
+            window.ellipse(x + 80, y + 20,20,20);
+            window.stroke(0);
         }
     }
 

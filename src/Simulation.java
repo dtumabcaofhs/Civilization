@@ -4,17 +4,26 @@ import Tiles.Buildings.Lumberyard;
 import Tiles.Buildings.Mine;
 
 public class Simulation {
-    public static int population = 20;
+    public static int population;
     public static int food = 500, personFoodConsumption = 1, foodConsumption;
-    public static int workerAmt = population/2;
-    public static int wood = 20;
-    public static int stone = 20;
+    public static int workerAmt;
+    public static int wood;
+    public static int stone;
+
+    public static void setup(){
+        population = 20;
+        food = 500;
+        personFoodConsumption = 1;
+        workerAmt = population/2;
+        wood = 20;
+        stone = 20;
+    }
 
     public static void simulateOneTick() {
         //int rand = (int) (Math.random() * 5 + 1);
         //population = (int)(population + (food - (population*0.1))) + rand;
         foodConsumption = population*personFoodConsumption;
-        population += (food - foodConsumption)/1;
+        population += food - foodConsumption;
         workerAmt = population/2;
         food -= foodConsumption;
         if(food<0){

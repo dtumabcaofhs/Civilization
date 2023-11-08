@@ -1,12 +1,12 @@
-# SmurfCatVillage? v0.13
+# SmurfCatVillage? v0.14
 Gain the power to manage a civilization.
 
 Project management: https://github.com/users/dtumabcaofhs/projects/1
 
 ## Guide
-#### Turns
-* Press 'Space' to increment turns
-* Hold 'Space' to increment turns automatically
+#### Days
+* Press 'Space' to increment days
+* Hold 'Space' to increment days automatically
 
 #### Selecting
 * Click on a tile to select it
