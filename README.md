@@ -1,9 +1,10 @@
-# SmurfCatVillage? v0.14
+# SmurfCatVillage? v0.15
 Gain the power to manage a civilization.
 
 Project management: https://github.com/users/dtumabcaofhs/projects/1
 
 ## Guide
+* Press 's' to reset game progress & return to title screen
 #### Days
 * Press 'Space' to increment days
 * Hold 'Space' to increment days automatically

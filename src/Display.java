@@ -7,6 +7,7 @@ import processing.core.PImage;
 
 public class Display {
     static int undoX = 1400, undoY = 800, undoW = 200, undoH = 100;
+    public static int buildWinX = 1450;
     static PImage logo;
     static int playX = 700, playY = 600, playW = 200, playH = 100;
     public static boolean canBuildOnHover = false;
@@ -27,7 +28,7 @@ public class Display {
         if(window.mouseX >= playX && window.mouseX <= playX+playW && window.mouseY >= playY && window.mouseY <= playY+playH){
             window.fill(0,255,0);
         }
-        window.text("Play", 760, 665);
+        window.text("Play", playX+60, playY+65);
 
         //credit
         window.fill(255);
@@ -52,7 +53,6 @@ public class Display {
     }
 
     public static void displayUI(Game window) {
-        int buildWinX = 1450;
         window.fill(255);
         window.text("Build", buildWinX+50-window.textWidth("Build")/2, 40);
         if(Simulation.wood >= Farm.cost && Simulation.workerAmt >= Farm.workersNeeded) {

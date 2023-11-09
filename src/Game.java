@@ -34,12 +34,14 @@ public class Game extends PApplet {
 
         Display.logo = loadImage("Images/logo.png");
 
-        City.img = loadImage("Images/city.jpg");
-        Farm.img = loadImage("Images/barn.png");
+        City.img = loadImage("Images/village.jpg");
+        Farm.img = loadImage("Images/farm.jpg");
+        Mine.img = loadImage("Images/mine.jpg");
+        Lumberyard.img = loadImage("Images/lumberyard.jpg");
 
-        Forest.img = loadImage("Images/forest.jpg");
-        Mountain.img = loadImage("Images/wawwaw.jpg");
-        Plain.img = loadImage("Images/grass.png");
+        Forest.img = loadImage("Images/forest2.jpg");
+        Mountain.img = loadImage("Images/mountain.jpg");
+        Plain.img = loadImage("Images/plain.jpg");
 
         gameSetup();
 
@@ -55,6 +57,7 @@ public class Game extends PApplet {
     public void gameSetup(){
         inGame = false;
         turn = 1;
+        buildType = null;
         Simulation.setup();
         GenerateTile.generateTerrain();
     }
@@ -108,7 +111,9 @@ public class Game extends PApplet {
 
     public void mouseClicked() {
         if(!inGame){
-            inGame = mouseOn(Display.playX, Display.playY, 200, 100);
+            textSize(45);
+            inGame = mouseOn(Display.playX, Display.playY, (int) textWidth("Play") + 120, (int) (textAscent()+textDescent() + 120));
+            textSize(30);
         }else{
             for (int i = 0; i < 81; i++) {
                 Tile newTile = GenerateTile.tileList.get(i);
@@ -127,28 +132,28 @@ public class Game extends PApplet {
                     }
                 }
             }
-            if (mouseOn(1450, 170, 100, 100)) {
+            if (mouseOn(Display.buildWinX, 170, 100, 100)) {
                 if(buildType instanceof Mine){
                     buildType = null;
                 }else{
                     buildType = new Mine(0,0);
                 }
             }
-            if (mouseOn(1450, 45, 100, 100)) {
+            if (mouseOn(Display.buildWinX, 45, 100, 100)) {
                 if(buildType instanceof Farm){
                     buildType = null;
                 }else{
                     buildType = new Farm(0,0);
                 }
             }
-            if (mouseOn(1425, 275, 100, 100)) {
+            if (mouseOn(Display.buildWinX, 275, 100, 100)) {
                 if(buildType instanceof Laboratory){
                     buildType = null;
                 }else{
                     buildType = new Laboratory(0,0);
                 }
             }
-            if (mouseOn(1425, 420, 100, 100)) {
+            if (mouseOn(Display.buildWinX, 420, 100, 100)) {
                 if(buildType instanceof Lumberyard){
                     buildType = null;
                 }else{
