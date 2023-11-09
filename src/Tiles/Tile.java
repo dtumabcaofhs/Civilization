@@ -62,10 +62,8 @@ public class Tile {
         }
 
         if(enriched) {
-            window.noStroke();
             window.fill(255,255,0);
             window.ellipse(x + 80, y + 20,20,20);
-            window.stroke(0);
         }
     }
 

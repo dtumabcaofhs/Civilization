@@ -27,7 +27,7 @@ public class Display {
         if(window.mouseX >= playX && window.mouseX <= playX+playW && window.mouseY >= playY && window.mouseY <= playY+playH){
             window.fill(0,255,0);
         }
-        window.text("Play", 760, 665);
+        window.text("Play", playX+60, playY+65);
 
         //credit
         window.fill(255);
