@@ -1,7 +1,7 @@
 # SmurfCatVillage? v0.15
 Gain the power to manage a civilization.
 
-Project management: https://github.com/users/dtumabcaofhs/projects/1
+![image](https://github.com/dtumabcaofhs/SmurfCatVillage-TBA-/assets/143454140/55e40f16-9ca2-4d9d-b0e2-6f5d93c0f3a3)
 
 ## Guide
 * Press 's' to reset game progress & return to title screen
