@@ -1,4 +1,4 @@
-# SmurfCatVillage? v0.15
+# SmurfCatVillage? v0.15.1
 Gain the power to manage a civilization.
 
 ![image](https://github.com/dtumabcaofhs/SmurfCatVillage-TBA-/assets/143454140/55e40f16-9ca2-4d9d-b0e2-6f5d93c0f3a3)

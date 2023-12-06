@@ -18,6 +18,7 @@ public class Game extends PApplet {
     static Tile buildType;
     int holdNextTurnTimer;
     boolean holdingNextTurn = false;
+    static boolean workerButtState = false;
     public void settings() {
         size(1600, 900);   // set the window size
     }
@@ -119,16 +120,16 @@ public class Game extends PApplet {
                 Tile newTile = GenerateTile.tileList.get(i);
                 if (mouseOn(newTile.x, newTile.y, Tile.w, Tile.h)) {
                     if (newTile instanceof Mountain && newTile.enriched && buildType instanceof Mine && Simulation.workerAmt >= Mine.workersNeeded && Simulation.wood >= Mine.cost) {
-                        BuildTile.buildMine(i);
+                        PlaceTile.buildMine(i);
                     }
                     if (!(newTile instanceof City || newTile instanceof Farm) && buildType instanceof Farm && Simulation.workerAmt >= Farm.workersNeeded && Simulation.wood >= Farm.cost) {
-                        BuildTile.buildFarm(i);
+                        PlaceTile.buildFarm(i);
                     }
                     if (!(newTile instanceof City || newTile instanceof Laboratory) && newTile.enriched && buildType instanceof Laboratory && Simulation.workerAmt >= Laboratory.workersNeeded && Simulation.stone >= Laboratory.cost) {
-                        BuildTile.buildLaboratory(i);
+                        PlaceTile.buildLaboratory(i);
                     }
                     if (newTile instanceof Forest && buildType instanceof Lumberyard && Simulation.workerAmt >= Lumberyard.workersNeeded && Simulation.wood >= Lumberyard.cost) {
-                        BuildTile.buildLumberyard(i);
+                        PlaceTile.buildLumberyard(i);
                     }
                 }
             }
@@ -137,6 +138,7 @@ public class Game extends PApplet {
                     buildType = null;
                 }else{
                     buildType = new Mine(0,0);
+                    workerButtState = false;
                 }
             }
             if (mouseOn(Display.buildWinX, 45, 100, 100)) {
@@ -144,6 +146,7 @@ public class Game extends PApplet {
                     buildType = null;
                 }else{
                     buildType = new Farm(0,0);
+                    workerButtState = false;
                 }
             }
             if (mouseOn(Display.buildWinX, 275, 100, 100)) {
@@ -151,6 +154,7 @@ public class Game extends PApplet {
                     buildType = null;
                 }else{
                     buildType = new Laboratory(0,0);
+                    workerButtState = false;
                 }
             }
             if (mouseOn(Display.buildWinX, 420, 100, 100)) {
@@ -158,10 +162,19 @@ public class Game extends PApplet {
                     buildType = null;
                 }else{
                     buildType = new Lumberyard(0,0);
+                    workerButtState = false;
                 }
             }
-            if (mouseOn(Display.undoX, Display.undoY, Display.undoW, Display.undoH) && BuildTile.savedTileIndex >= 0 && BuildTile.savedTurn == Game.turn) {
-                BuildTile.undoLast();
+            if (mouseOn(Display.buildWinX, 525, 100, 100)) {
+                if(!workerButtState){
+                    buildType = null;
+                    workerButtState = true;
+                }else{
+                    workerButtState = false;
+                }
+            }
+            if (mouseOn(Display.undoX, Display.undoY, Display.undoW, Display.undoH) && PlaceTile.savedTileIndex >= 0 && PlaceTile.savedTurn == Game.turn) {
+                PlaceTile.undoLast();
             }
 
             for (int i = 0; i < GeneratePerson.personList.size(); i++) {

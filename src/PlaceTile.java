@@ -4,7 +4,7 @@ import Tiles.Buildings.Laboratory;
 import Tiles.Buildings.Lumberyard;
 import Tiles.Buildings.Mine;
 
-public class BuildTile {
+public class PlaceTile {
     public static Tile savedOldTile;
     public static int savedTileIndex,savedTurn,savedWood,savedStone,savedWorkerNum;
     public static void buildMine(int i){

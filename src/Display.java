@@ -60,12 +60,13 @@ public class Display {
         }else{
             window.fill(255,0,0);
         }
-        if(Game.buildType instanceof Mine) {window.fill(100,100,100);
-        } else {window.fill(50,50,50);}
-        window.rect(buildWinX,170,100,100);
+
         if(Game.buildType instanceof Farm) {window.fill(100,100,100);
         } else {window.fill(50,50,50);}
         window.rect(buildWinX, 45, 100, 100);
+        if(Game.buildType instanceof Mine) {window.fill(100,100,100);
+        } else {window.fill(50,50,50);}
+        window.rect(buildWinX,170,100,100);
         if(Game.buildType instanceof Laboratory) {window.fill(100,100,100);
         } else {window.fill(50,50,50);}
         window.rect(buildWinX,295,100,100);
@@ -78,33 +79,44 @@ public class Display {
         }else{
             window.fill(255,0,0);
         }
-        window.text("Farm", buildWinX+50-window.textWidth("Farm")/2, 105);
+        window.text("Farm", buildWinX+50-window.textWidth("Farm")/2, 45+60);
 
         if(Simulation.wood >= Mine.cost && Simulation.workerAmt >= Mine.workersNeeded) {
             window.fill(0, 255, 0);
         }else{
             window.fill(255,0,0);
         }
-        window.text("Mine", buildWinX+50-window.textWidth("Mine")/2, 230);
+        window.text("Mine", buildWinX+50-window.textWidth("Mine")/2, 170+60);
 
         if(Simulation.stone >= Laboratory.cost && Simulation.workerAmt >= Laboratory.workersNeeded) {
             window.fill(0, 255, 0);
         }else{
             window.fill(255,0,0);
         }
-        window.text("Lab.", buildWinX+50-window.textWidth("Lab.")/2, 355);
+        window.text("Lab.", buildWinX+50-window.textWidth("Lab.")/2, 295+60);
 
         if(Simulation.wood >= Lumberyard.cost && Simulation.workerAmt >= Lumberyard.workersNeeded) {
             window.fill(0, 255, 0);
         }else{
             window.fill(255,0,0);
         }
-        window.text("Lumb.", buildWinX+50-window.textWidth("Lumb.")/2, 480);
+        window.text("Lumb.", buildWinX+50-window.textWidth("Lumb.")/2, 420+60);
+
+        if(Game.workerButtState) {window.fill(100,100,100);
+        } else {window.fill(50,50,50);}
+        window.rect(buildWinX,545,100,100);
+        if(Simulation.workerAmt >= 0) {
+            window.fill(0, 255, 0);
+        }else{
+            window.fill(255,0,0);
+        }
+        window.textSize(25);
+        window.text("Worker", buildWinX+56-window.textWidth("Workers")/2, 545+60);
 
         //reset button
         window.fill(255,0,0);
         window.rect(undoX, undoY, undoW, undoH);
-        if(BuildTile.savedTileIndex >= 0 && BuildTile.savedTurn == Game.turn) {
+        if(PlaceTile.savedTileIndex >= 0 && PlaceTile.savedTurn == Game.turn) {
             window.fill(255);
         }else{
             window.fill(125);
@@ -352,9 +364,9 @@ public class Display {
             canBuildOnHover = false;
             window.fill(255,0,0);
         }
-        window.text("Build: "+buildType, 905, 600);
+        window.text("Place: "+buildType, 905, 600);
         window.fill(255);
-        window.text("Build: ", 905, 600);
+        window.text("Place: ", 905, 600);
     }
     public static void displayPeople(Game window) {
         for (int i = 0; i < GeneratePerson.personList.size(); i++) {
