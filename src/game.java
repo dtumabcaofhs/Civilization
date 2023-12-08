@@ -35,6 +35,8 @@ public class game extends PApplet {
 
         display.logo = loadImage("images/logo.png");
 
+        tile.enrichedImg = loadImage("images/enrichedIcon.png");
+
         city.img = loadImage("images/village.jpg");
         farm.img = loadImage("images/farm.jpg");
         mine.img = loadImage("images/mine.jpg");

@@ -5,6 +5,7 @@ import processing.core.PImage;
 
 public class tile {
     PImage img;
+    public static PImage enrichedImg;
     public int value;
     public int row, col, x, y;
     public static int w = 100, h = 100;
@@ -62,8 +63,9 @@ public class tile {
         }
 
         if(enriched) {
-            window.fill(255,255,0);
-            window.ellipse(x + 80, y + 20,20,20);
+            //window.fill(255,255,0);
+            //window.ellipse(x + 80, y + 20,20,20);
+            window.image(enrichedImg,x+80,y,20,20);
         }
     }
 
