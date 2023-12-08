@@ -1,11 +1,11 @@
-package Tiles.Buildings;
+package tiles.buildings;
 
-import Tiles.Tile;
+import tiles.tile;
 import processing.core.PImage;
 
-public class City extends Tile {
+public class city extends tile {
     public static PImage img;
-    public City(int row, int col) {
+    public city(int row, int col) {
         super(row, col, img);
         r = 200;
         g = 0;

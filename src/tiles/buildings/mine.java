@@ -1,21 +1,21 @@
-package Tiles.Buildings;
+package tiles.buildings;
 
-import Tiles.Terrain.Mountain;
-import Tiles.Tile;
+import tiles.terrain.mountain;
+import tiles.tile;
 import processing.core.PImage;
 
-public class Mine extends Tile {
+public class mine extends tile {
     public static PImage img;
     public static int workersNeeded=20;
     public static int cost = 30;
-    public static Tile[] buildableIn;
+    public static tile[] buildableIn;
     static {
-        Mountain m = new Mountain(0, 0);
+        mountain m = new mountain(0, 0);
         m.buildAreaEnrichmentNeed = 1;
-        buildableIn = new Tile[]{m};
+        buildableIn = new tile[]{m};
     }
     public static String buildTxt = "Enriched Mountains";
-    public Mine(int row, int col) {
+    public mine(int row, int col) {
         super(row, col, img);
         r = 255;
         g = 105;

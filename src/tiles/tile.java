@@ -1,10 +1,10 @@
-package Tiles;
+package tiles;
 
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Tile {
-    protected PImage img;
+public class tile {
+    PImage img;
     public int value;
     public int row, col, x, y;
     public static int w = 100, h = 100;
@@ -16,7 +16,7 @@ public class Tile {
     boolean brightCalculated = false;
     boolean useImages = true;
 
-    public Tile(int row, int col, PImage img){
+    public tile(int row, int col, PImage img){
         this.row = row;
         this.col = col;
 
@@ -25,7 +25,7 @@ public class Tile {
         this.img = img;
     }
 
-    public void draw(PApplet window, boolean canBuildOnHover, Tile buildType){
+    public void draw(PApplet window, boolean canBuildOnHover, tile buildType){
         if (!brightCalculated) {
             calcBrightness();
             brightCalculated = true;
