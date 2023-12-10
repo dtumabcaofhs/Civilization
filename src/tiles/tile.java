@@ -13,7 +13,7 @@ public class tile {
     protected int rB,gB,bB;
     public boolean enriched;
     public int buildAreaEnrichmentNeed; //0: dont care 1: enriched 2: not enriched
-    public boolean selected;
+    public boolean hoveredOver;
     boolean brightCalculated = false;
     boolean useImages = true;
 
@@ -32,7 +32,7 @@ public class tile {
             brightCalculated = true;
         }
 
-        if(selected) {
+        if(hoveredOver) {
             if (img == null || !useImages) {
                 window.fill(rB, gB, bB);
             } else if(buildType != null){
