@@ -1,11 +1,11 @@
-package Tiles.Terrain;
+package tiles.terrain;
 
-import Tiles.Tile;
+import tiles.tile;
 import processing.core.PImage;
 
-public class Mountain extends Tile {
+public class mountain extends tile {
     public static PImage img;
-    public Mountain(int row, int col) {
+    public mountain(int row, int col) {
         super(row, col, img);
         r = 105;
         g = 105;

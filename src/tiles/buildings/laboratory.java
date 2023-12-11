@@ -1,27 +1,27 @@
-package Tiles.Buildings;
+package tiles.buildings;
 
-import Tiles.Terrain.Forest;
-import Tiles.Terrain.Mountain;
-import Tiles.Terrain.Plain;
-import Tiles.Tile;
+import tiles.terrain.forest;
+import tiles.terrain.mountain;
+import tiles.terrain.plain;
+import tiles.tile;
 import processing.core.PImage;
 
-public class Laboratory extends Tile {
+public class laboratory extends tile {
     public static PImage img;
     public static int workersNeeded=10;
     public static int cost = 100;
-    public static Tile[] buildableIn;
+    public static tile[] buildableIn;
     static {
-        Forest f = new Forest(0, 0);
+        forest f = new forest(0, 0);
         f.buildAreaEnrichmentNeed = 1;
-        Plain p = new Plain(0, 0);
+        plain p = new plain(0, 0);
         p.buildAreaEnrichmentNeed = 1;
-        Mountain m = new Mountain(0, 0);
+        mountain m = new mountain(0, 0);
         m.buildAreaEnrichmentNeed = 1;
-        buildableIn = new Tile[]{f,p,m};
+        buildableIn = new tile[]{f,p,m};
     }
     public static String buildTxt = "Enriched Forests,\nPlains & Mountains";
-    public Laboratory(int row, int col) {
+    public laboratory(int row, int col) {
         super(row, col, img);
         r = 255;
         g = 127;

@@ -1,21 +1,21 @@
-package Tiles.Buildings;
+package tiles.buildings;
 
-import Tiles.Terrain.Forest;
-import Tiles.Tile;
+import tiles.terrain.forest;
+import tiles.tile;
 import processing.core.PImage;
 
-public class Lumberyard extends Tile {
+public class lumberyard extends tile {
     public static PImage img;
     public static int workersNeeded=5;
     public static int cost = 5;
-    public static Tile[] buildableIn;
+    public static tile[] buildableIn;
     static {
-        Forest f = new Forest(0, 0);
+        forest f = new forest(0, 0);
         f.buildAreaEnrichmentNeed = 0;
-        buildableIn = new Tile[]{f};
+        buildableIn = new tile[]{f};
     }
     public static String buildTxt = "Forests";
-    public Lumberyard(int row, int col) {
+    public lumberyard(int row, int col) {
         super(row, col, img);
         r = 139;
         g = 69;

@@ -1,10 +1,11 @@
-package Tiles;
+package tiles;
 
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Tile {
-    protected PImage img;
+public class tile {
+    PImage img;
+    public static PImage enrichedImg;
     public int value;
     public int row, col, x, y;
     public static int w = 100, h = 100;
@@ -12,11 +13,11 @@ public class Tile {
     protected int rB,gB,bB;
     public boolean enriched;
     public int buildAreaEnrichmentNeed; //0: dont care 1: enriched 2: not enriched
-    public boolean selected;
+    public boolean hoveredOver;
     boolean brightCalculated = false;
     boolean useImages = true;
 
-    public Tile(int row, int col, PImage img){
+    public tile(int row, int col, PImage img){
         this.row = row;
         this.col = col;
 
@@ -25,13 +26,13 @@ public class Tile {
         this.img = img;
     }
 
-    public void draw(PApplet window, boolean canBuildOnHover, Tile buildType){
+    public void draw(PApplet window, boolean canBuildOnHover, tile buildType){
         if (!brightCalculated) {
             calcBrightness();
             brightCalculated = true;
         }
 
-        if(selected) {
+        if(hoveredOver) {
             if (img == null || !useImages) {
                 window.fill(rB, gB, bB);
             } else if(buildType != null){
@@ -62,8 +63,9 @@ public class Tile {
         }
 
         if(enriched) {
-            window.fill(255,255,0);
-            window.ellipse(x + 80, y + 20,20,20);
+            //window.fill(255,255,0);
+            //window.ellipse(x + 80, y + 20,20,20);
+            window.image(enrichedImg,x+80,y,20,20);
         }
     }
 
