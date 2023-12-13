@@ -1,6 +1,10 @@
-# CIVILIZATION v0.16
+<img src="images/civilizationLogo2.png" width = "50">
+# v0.16  
 A video game where you can manage a civilization. Coded with Java, coffee (get it?) 
-and love.
+and love.  
+Made by Dean Tumabcao & Alan McWilliams  
+### 📷 Screenshots
+![](images/CivilizationScreenshot1.png)  
 ## 📖 Civilization Guide
 ### 👋 Introduction
 Welcome to **Civilization**! In this video game, you exist in The World. You are granted godly, society-shaping powers. From ~~the~~ ~~heavens~~ wherever you are, you oversee a human village.
