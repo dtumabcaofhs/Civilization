@@ -28,7 +28,7 @@ about your civilization, its world, and your selected place type.
 #### 🧩 The Fundamentals
 * ➡️ You start the game with 20 people, 500 food, 10 workers, 20 wood and 20 stone.
 * 🌓 Half of the population are workers.
-* 👷 Workers are shown in 🗺️ The World View with a <img src="images/workerIcon.png" width="25">
+* 👷 Workers are shown in 🗺️ The World View with a <img src="images/workerIcon.png" width="25">.
 * Enriched tiles are indicated by a <img src="images/enrichedIcon.png" width="25"> on the top right of a tile.
 #### ⚒️ Place Types
 * 🌽 Farm
