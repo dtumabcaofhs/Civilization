@@ -5,6 +5,7 @@ import processing.core.PImage;
 
 public class tile {
     PImage img;
+    public static PImage enrichedImg;
     public int value;
     public int row, col, x, y;
     public static int w = 100, h = 100;
@@ -12,7 +13,7 @@ public class tile {
     protected int rB,gB,bB;
     public boolean enriched;
     public int buildAreaEnrichmentNeed; //0: dont care 1: enriched 2: not enriched
-    public boolean selected;
+    public boolean hoveredOver;
     boolean brightCalculated = false;
     boolean useImages = true;
 
@@ -31,7 +32,7 @@ public class tile {
             brightCalculated = true;
         }
 
-        if(selected) {
+        if(hoveredOver) {
             if (img == null || !useImages) {
                 window.fill(rB, gB, bB);
             } else if(buildType != null){
@@ -62,8 +63,9 @@ public class tile {
         }
 
         if(enriched) {
-            window.fill(255,255,0);
-            window.ellipse(x + 80, y + 20,20,20);
+            //window.fill(255,255,0);
+            //window.ellipse(x + 80, y + 20,20,20);
+            window.image(enrichedImg,x+80,y,20,20);
         }
     }
 

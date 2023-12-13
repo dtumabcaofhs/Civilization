@@ -35,6 +35,8 @@ public class game extends PApplet {
 
         display.logo = loadImage("images/logo.png");
 
+        tile.enrichedImg = loadImage("images/enrichedIcon.png");
+
         city.img = loadImage("images/village.jpg");
         farm.img = loadImage("images/farm.jpg");
         mine.img = loadImage("images/mine.jpg");
@@ -77,31 +79,20 @@ public class game extends PApplet {
             display.displayInfo(this);
             display.displayPeople(this);
 
-            if(keyPressed && key == ' '){
-                if(holdingNextTurn){
-                    simulation.simulateOneTick();
-                }
-                holdNextTurnTimer++;
-                if(holdNextTurnTimer >= 10){
-                    holdingNextTurn = true;
-                }
-            }else{
-                holdingNextTurn = false;
-                holdNextTurnTimer = 0;
-            }
+            speedTimeFeature();
 
-            boolean tileClicked = false;
+            boolean hoveringOverTile = false;
             for (int i = 0; i < 81; i++) {
                 tile newTile = generateTile.tileList.get(i);
                 if (mouseOn(newTile.x, newTile.y, tile.w, tile.h)) {
-                    tileClicked = true;
+                    hoveringOverTile = true;
                     display.tileIndex = i;
-                    newTile.selected = true;
+                    newTile.hoveredOver = true;
                 }else{
-                    newTile.selected = false;
+                    newTile.hoveredOver = false;
                 }
             }
-            if (!tileClicked){
+            if (!hoveringOverTile){
                 display.tileIndex = -1;
             }
         }
@@ -250,6 +241,21 @@ public class game extends PApplet {
                     person.b = 0;
                 }
             }
+        }
+    }
+
+    public void speedTimeFeature(){
+        if(keyPressed && key == ' '){
+            if(holdingNextTurn){
+                simulation.simulateOneTick();
+            }
+            holdNextTurnTimer++;
+            if(holdNextTurnTimer >= 10){
+                holdingNextTurn = true;
+            }
+        }else{
+            holdingNextTurn = false;
+            holdNextTurnTimer = 0;
         }
     }
 
