@@ -3,7 +3,7 @@ package tiles;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class tile {
+public class Tile {
     PImage img;
     public static PImage enrichedImg;
     public int value;
@@ -17,7 +17,7 @@ public class tile {
     boolean brightCalculated = false;
     boolean useImages = true;
 
-    public tile(int row, int col, PImage img){
+    public Tile(int row, int col, PImage img){
         this.row = row;
         this.col = col;
         this.x = row * w;
@@ -25,7 +25,7 @@ public class tile {
         this.img = img;
     }
 
-    public void draw(PApplet window, boolean canBuildOnHover, tile buildType, boolean canPlaceWorker){
+    public void draw(PApplet window, boolean canBuildOnHover, Tile buildType, boolean canPlaceWorker){
         if (!brightCalculated) {
             calcBrightness();
             brightCalculated = true;

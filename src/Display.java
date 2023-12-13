@@ -1,18 +1,18 @@
-import people.person;
+import people.Person;
 import tiles.*;
 import tiles.buildings.*;
-import tiles.terrain.forest;
-import tiles.terrain.mountain;
-import tiles.terrain.plain;
+import tiles.terrain.Forest;
+import tiles.terrain.Mountain;
+import tiles.terrain.Plain;
 import processing.core.PImage;
 
-public class display {
+public class Display {
     static int undoX = 1400, undoY = 800, undoW = 200, undoH = 100;
     public static int buildWinX = 1450;
     static PImage logo;
     static int playX = 700, playY = 600, playW = 200, playH = 100;
     public static boolean canBuildOnHover = false;
-    public static void titleScreen(game window) {
+    public static void titleScreen(Game window) {
         window.background(0);
         //title
         window.image(logo,400,382,819,135);
@@ -34,14 +34,14 @@ public class display {
         window.text("Developed by Dean T & Alan M", 580, 880);
     }
 
-    public static void displayTile(game window){
-        for (int i = 0; i < manageTiles.tileList.size(); i++) {
-            tile newTile = manageTiles.tileList.get(i);
-            newTile.draw(window, canBuildOnHover, game.placeType, game.canPlaceWorker);
+    public static void displayTile(Game window){
+        for (int i = 0; i < ManageTiles.tileList.size(); i++) {
+            Tile newTile = ManageTiles.tileList.get(i);
+            newTile.draw(window, canBuildOnHover, Game.placeType, Game.canPlaceWorker);
         }
     }
 
-    public static void displayBackground(game window){
+    public static void displayBackground(Game window){
         //info window
         window.fill(0);
         window.rect(900,0,500,900);
@@ -50,60 +50,60 @@ public class display {
         window.rect(1400,0,200,900);
     }
 
-    public static void displayUI(game window) {
+    public static void displayUI(Game window) {
         window.fill(255);
         window.text("Place", buildWinX+50-window.textWidth("Place")/2, 35);
-        if(simulation.wood >= farm.cost && simulation.workerAmt >= farm.workersNeeded) {
+        if(Simulation.wood >= Farm.cost && Simulation.workerAmt >= Farm.workersNeeded) {
             window.fill(0, 255, 0);
         }else{
             window.fill(255,0,0);
         }
 
-        if(game.placeType instanceof farm) {window.fill(100,100,100);
+        if(Game.placeType instanceof Farm) {window.fill(100,100,100);
         } else {window.fill(50,50,50);}
         window.rect(buildWinX, 45, 100, 100);
-        if(game.placeType instanceof mine) {window.fill(100,100,100);
+        if(Game.placeType instanceof Mine) {window.fill(100,100,100);
         } else {window.fill(50,50,50);}
         window.rect(buildWinX,170,100,100);
-        if(game.placeType instanceof laboratory) {window.fill(100,100,100);
+        if(Game.placeType instanceof Laboratory) {window.fill(100,100,100);
         } else {window.fill(50,50,50);}
         window.rect(buildWinX,295,100,100);
-        if(game.placeType instanceof lumberyard) {window.fill(100,100,100);
+        if(Game.placeType instanceof Lumberyard) {window.fill(100,100,100);
         } else {window.fill(50,50,50);}
         window.rect(buildWinX,420,100,100);
 
-        if(simulation.wood >= farm.cost && simulation.workerAmt >= farm.workersNeeded) {
+        if(Simulation.wood >= Farm.cost) {
             window.fill(0, 255, 0);
         }else{
             window.fill(255,0,0);
         }
         window.text("Farm", buildWinX+50-window.textWidth("Farm")/2, 45+60);
 
-        if(simulation.wood >= mine.cost && simulation.workerAmt >= mine.workersNeeded) {
+        if(Simulation.wood >= Mine.cost && Simulation.workerAmt >= Mine.workersNeeded) {
             window.fill(0, 255, 0);
         }else{
             window.fill(255,0,0);
         }
         window.text("Mine", buildWinX+50-window.textWidth("Mine")/2, 170+60);
 
-        if(simulation.stone >= laboratory.cost && simulation.workerAmt >= laboratory.workersNeeded) {
+        if(Simulation.stone >= Laboratory.cost && Simulation.workerAmt >= Laboratory.workersNeeded) {
             window.fill(0, 255, 0);
         }else{
             window.fill(255,0,0);
         }
         window.text("Lab.", buildWinX+50-window.textWidth("Lab.")/2, 295+60);
 
-        if(simulation.wood >= lumberyard.cost && simulation.workerAmt >= lumberyard.workersNeeded) {
+        if(Simulation.wood >= Lumberyard.cost && Simulation.workerAmt >= Lumberyard.workersNeeded) {
             window.fill(0, 255, 0);
         }else{
             window.fill(255,0,0);
         }
         window.text("Lumb.", buildWinX+50-window.textWidth("Lumb.")/2, 420+60);
 
-        if(game.canPlaceWorker) {window.fill(100,100,100);
+        if(Game.canPlaceWorker) {window.fill(100,100,100);
         } else {window.fill(50,50,50);}
         window.rect(buildWinX,545,100,100);
-        if(simulation.workerAmt >= 0) {
+        if(Simulation.workerAmt >= 0) {
             window.fill(0, 255, 0);
         }else{
             window.fill(255,0,0);
@@ -114,7 +114,7 @@ public class display {
         //reset button
         window.fill(255,0,0);
         window.rect(undoX, undoY, undoW, undoH);
-        if(game.canUndoTile() || game.canUndoPerson()) {
+        if(Game.canUndoTile() || Game.canUndoPerson()) {
             window.fill(255);
         }else{
             window.fill(125);
@@ -125,100 +125,100 @@ public class display {
     }
 
     static int tileIndex = -1;
-    public static void displayInfo(game window) {
+    public static void displayInfo(Game window) {
         window.fill(200);
-        window.text("Day: "+ game.day, 905, 30);
+        window.text("Day: "+ Game.day, 905, 30);
         window.fill(255);
         window.text("Day: ", 905, 30);
 
-        if(simulation.population > 0){
+        if(Simulation.population > 0){
             window.fill(0,255,0);
         }else{
             window.fill(255,0,0);
         }
-        window.text("Population: "+ simulation.population, 905, 80);
+        window.text("Population: "+ Simulation.population, 905, 80);
         window.fill(255);
         window.text("Population: ", 905, 80);
 
-        int nextFood = simulation.food - (simulation.population * simulation.personFoodConsumption);
+        int nextFood = Simulation.food - (Simulation.population * Simulation.personFoodConsumption);
         if(nextFood < 0) {
             nextFood = 0;
         }
         int foodSourceCount = 0;
-        for (int i = 0; i < manageTiles.tileList.size(); i++) {
-            tile currTile = manageTiles.tileList.get(i);
-            if (currTile instanceof farm) {
+        for (int i = 0; i < ManageTiles.tileList.size(); i++) {
+            Tile currTile = ManageTiles.tileList.get(i);
+            if (currTile instanceof Farm) {
                 foodSourceCount++;
             }
         }
-        if(simulation.population > 0){
+        if(Simulation.population > 0){
             nextFood += foodSourceCount*30;
         }if(nextFood == 0){
             window.fill(255,0,0);
         }else{
             window.fill(0,255,0);
         }
-        window.text("Food: "+ simulation.food+"   Next Food: "+nextFood, 905, 130);
+        window.text("Food: "+ Simulation.food+"   Next Food: "+nextFood, 905, 130);
         window.fill(255);
-        window.text("Food: "+ simulation.food+"   Next Food: ", 905, 130);
-        if(simulation.food > 0){
+        window.text("Food: "+ Simulation.food+"   Next Food: ", 905, 130);
+        if(Simulation.food > 0){
             window.fill(0,255,0);
         }else{
             window.fill(255,0,0);
         }
-        window.text("Food: "+ simulation.food, 905, 130);
+        window.text("Food: "+ Simulation.food, 905, 130);
         window.fill(255);
         window.text("Food: ", 905, 130);
 
 
-        if(simulation.workerAmt > 0){
+        if(Simulation.workerAmt > 0){
             window.fill(0,255,0);
         }else{
             window.fill(255,0,0);
         }
-        window.text("Available Workers: "+ simulation.workerAmt, 905, 180);
+        window.text("Available Workers: "+ Simulation.workerAmt, 905, 180);
         window.fill(255);
         window.text("Available Workers: ", 905, 180);
 
 
-        if(simulation.wood > 0){
+        if(Simulation.wood > 0){
             window.fill(0,255,0);
         }else{
             window.fill(255,0,0);
         }
-        window.text("Wood: "+ simulation.wood, 905, 230);
+        window.text("Wood: "+ Simulation.wood, 905, 230);
         window.fill(255);
         window.text("Wood: ", 905, 230);
 
 
-        if(simulation.stone > 0){
+        if(Simulation.stone > 0){
             window.fill(0,255,0);
         }else{
             window.fill(255,0,0);
         }
-        window.text("Stone: "+ simulation.stone, 905, 280);
+        window.text("Stone: "+ Simulation.stone, 905, 280);
         window.fill(255);
         window.text("Stone: ", 905, 280);
 
 
         String type = "";
         if(tileIndex >= 0) {
-            tile selectedTile = manageTiles.tileList.get(tileIndex);
-            if (selectedTile instanceof forest) {
+            Tile selectedTile = ManageTiles.tileList.get(tileIndex);
+            if (selectedTile instanceof Forest) {
                 type = "Forest";
-            } else if (selectedTile instanceof plain) {
+            } else if (selectedTile instanceof Plain) {
                 type = "Plain";
-            } else if (selectedTile instanceof mountain) {
+            } else if (selectedTile instanceof Mountain) {
                 type = "Mountain";
-            } else if (selectedTile instanceof city) {
+            } else if (selectedTile instanceof City) {
                 type = "City";
-            } else if (selectedTile instanceof mine) {
+            } else if (selectedTile instanceof Mine) {
                 type = "Mine";
-            } else if (selectedTile instanceof farm) {
+            } else if (selectedTile instanceof Farm) {
                 type = "Farm";
-            } else if (selectedTile instanceof laboratory) {
+            } else if (selectedTile instanceof Laboratory) {
                 type = "Laboratory";
-            } else if (selectedTile instanceof lumberyard) {
+            } else if (selectedTile instanceof Lumberyard) {
                 type = "Lumberyard";
             }
 
@@ -236,41 +236,41 @@ public class display {
         int cost = -1;
         String material = "";
         boolean enoughMaterials = false;
-        if(game.placeType != null) {
-            if (game.placeType instanceof mine) {
-                cost = mine.cost;
+        if(Game.placeType != null) {
+            if (Game.placeType instanceof Mine) {
+                cost = Mine.cost;
                 material = "Wood";
                 window.fill(255, 0, 0);
             }
-            if (game.placeType instanceof farm) {
-                cost = farm.cost;
+            if (Game.placeType instanceof Farm) {
+                cost = Farm.cost;
                 material = "Wood";
                 window.fill(255, 0, 0);
             }
-            if (game.placeType instanceof laboratory) {
-                cost = laboratory.cost;
+            if (Game.placeType instanceof Laboratory) {
+                cost = Laboratory.cost;
                 material = "Stone";
                 window.fill(255, 0, 0);
             }
-            if (game.placeType instanceof lumberyard) {
-                cost = lumberyard.cost;
+            if (Game.placeType instanceof Lumberyard) {
+                cost = Lumberyard.cost;
                 material = "Wood";
             }
             window.fill(255, 0, 0);
             if (material.equals("Wood")) {
-                if (simulation.wood >= cost) {
+                if (Simulation.wood >= cost) {
                     window.fill(0, 255, 0);
                     enoughMaterials = true;
                 }
             }
             if (material.equals("Stone")) {
-                if (simulation.stone >= cost) {
+                if (Simulation.stone >= cost) {
                     window.fill(0, 255, 0);
                     enoughMaterials = true;
                 }
             }
         }
-        if (game.canPlaceWorker) {
+        if (Game.canPlaceWorker) {
             window.text("Cost: 1 Available Worker", 905, 650);
         } else if(cost >= 0) {
             window.text("Cost: " + cost + " " + material, 905, 650);
@@ -279,12 +279,12 @@ public class display {
         window.text("Cost:", 905, 650);
 
 
-        if (game.isWorkerOnSelectedTile()) {
+        if (Game.isWorkerOnSelectedTile()) {
             window.fill(0, 255, 0);
         } else {
             window.fill(255, 0, 0);
         }
-        if (game.isWorkerOnSelectedTile()) {
+        if (Game.isWorkerOnSelectedTile()) {
             window.text("Worker On Selected Tile: Yes", 905, 700);
         } else {
             window.text("Worker On Selected Tile: No", 905, 700);
@@ -295,16 +295,16 @@ public class display {
 
         String placeableTiles = "";
         boolean enriched = false;
-        if(game.placeType instanceof mine){
-            placeableTiles = mine.buildTxt;
+        if(Game.placeType instanceof Mine){
+            placeableTiles = Mine.buildTxt;
             enriched = true;
-        }if(game.placeType instanceof farm){
-            placeableTiles = farm.buildTxt;
-        }if(game.placeType instanceof laboratory){
-            placeableTiles = laboratory.buildTxt;
+        }if(Game.placeType instanceof Farm){
+            placeableTiles = Farm.buildTxt;
+        }if(Game.placeType instanceof Laboratory){
+            placeableTiles = Laboratory.buildTxt;
             enriched = true;
-        }if(game.placeType instanceof lumberyard){
-            placeableTiles = lumberyard.buildTxt;
+        }if(Game.placeType instanceof Lumberyard){
+            placeableTiles = Lumberyard.buildTxt;
         }
         if(!placeableTiles.isEmpty()) {
             if(enriched) {
@@ -328,18 +328,18 @@ public class display {
         }
 
         String placeType = "";
-        if(game.placeType != null) {
-            if(game.placeType instanceof mine){
+        if(Game.placeType != null) {
+            if(Game.placeType instanceof Mine){
                 placeType = "Mine";
-            }if(game.placeType instanceof farm){
+            }if(Game.placeType instanceof Farm){
                 placeType = "Farm";
-            }if(game.placeType instanceof laboratory){
+            }if(Game.placeType instanceof Laboratory){
                 placeType = "Laboratory";
-            }if(game.placeType instanceof lumberyard){
+            }if(Game.placeType instanceof Lumberyard){
                 placeType = "Lumberyard";
             }
 
-            if(game.isWorkerOnSelectedTile() && enoughMaterials && selectedPlaceableTile) {
+            if(Game.isWorkerOnSelectedTile() && enoughMaterials && selectedPlaceableTile) {
                 canBuildOnHover = true;
                 window.fill(0,255,0);
             }else{
@@ -347,20 +347,20 @@ public class display {
                 window.fill(255,0,0);
             }
         }else{
-            if((game.canPlaceWorker)){
+            if((Game.canPlaceWorker)){
                 placeType = "Worker";
                 boolean notHoveringOverWorkerTile = true, hoveringOverATile = false;
-                for (person p : managePeople.personList) {
+                for (Person p : ManagePeople.personList) {
                     if(window.mouseOn(p.row * 100, p.col * 100, 100, 100)){
                         notHoveringOverWorkerTile = false;
                     }
                 }
-                for (tile t : manageTiles.tileList) {
+                for (Tile t : ManageTiles.tileList) {
                     if(window.mouseOn(t.x, t.y, 100, 100)){
                         hoveringOverATile = true;
                     }
                 }
-                if (simulation.workerAmt > 0 && hoveringOverATile && notHoveringOverWorkerTile) {
+                if (Simulation.workerAmt > 0 && hoveringOverATile && notHoveringOverWorkerTile) {
                     canBuildOnHover = true;
                     window.fill(0, 255, 0);
                 } else {
@@ -377,23 +377,23 @@ public class display {
     }
 
     private static int getBuildableAreaNum() {
-        tile selectedTile = manageTiles.tileList.get(tileIndex);
-        tile[] buildableIn = {};
-        if (game.placeType instanceof mine) {
-            buildableIn = mine.buildableIn;
+        Tile selectedTile = ManageTiles.tileList.get(tileIndex);
+        Tile[] buildableIn = {};
+        if (Game.placeType instanceof Mine) {
+            buildableIn = Mine.buildableIn;
         }
-        if (game.placeType instanceof farm) {
-            buildableIn = farm.buildableIn;
+        if (Game.placeType instanceof Farm) {
+            buildableIn = Farm.buildableIn;
         }
-        if (game.placeType instanceof laboratory) {
-            buildableIn = laboratory.buildableIn;
+        if (Game.placeType instanceof Laboratory) {
+            buildableIn = Laboratory.buildableIn;
         }
-        if (game.placeType instanceof lumberyard) {
-            buildableIn = lumberyard.buildableIn;
+        if (Game.placeType instanceof Lumberyard) {
+            buildableIn = Lumberyard.buildableIn;
         }
 
         int buildableAreaNum = 0;
-        for (tile n : buildableIn) {
+        for (Tile n : buildableIn) {
             if (selectedTile.getClass() == n.getClass()) {
                 if ((n.buildAreaEnrichmentNeed == 1 && selectedTile.enriched) || (n.buildAreaEnrichmentNeed == 2 && !selectedTile.enriched) || n.buildAreaEnrichmentNeed == 0) {
                     buildableAreaNum++;
@@ -403,9 +403,9 @@ public class display {
         return buildableAreaNum;
     }
 
-    public static void displayPeople(game window) {
-        for (int i = 0; i < managePeople.personList.size(); i++) {
-            managePeople.personList.get(i).draw(window);
+    public static void displayPeople(Game window) {
+        for (int i = 0; i < ManagePeople.personList.size(); i++) {
+            ManagePeople.personList.get(i).draw(window);
         }
     }
 }

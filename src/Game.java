@@ -8,14 +8,14 @@ import ddf.minim.Minim;
 import ddf.minim.AudioPlayer;
 import processing.core.PImage;
 
-public class game extends PApplet {
-    // TODO: declare game variables
+public class Game extends PApplet {
+    // TODO: declare Game variables
     Minim minim;
     AudioPlayer bgm,bgm2,bgm3,bgm4;
     PImage icon;
     boolean inGame;
     static int day;
-    static tile placeType;
+    static Tile placeType;
     int holdNextTurnTimer;
     boolean holdingNextTurn = false;
     static boolean canPlaceWorker = false;
@@ -36,21 +36,21 @@ public class game extends PApplet {
         icon = loadImage("images/CivilizationLogo.jpg");
         surface.setIcon(icon);
 
-        display.logo = loadImage("images/logo.png");
+        Display.logo = loadImage("images/logo.png");
 
-        tile.enrichedImg = loadImage("images/enrichedIcon.png");
+        Tile.enrichedImg = loadImage("images/enrichedIcon.png");
 
-        city.img = loadImage("images/village.jpg");
-        farm.img = loadImage("images/farm.jpg");
-        mine.img = loadImage("images/mine.jpg");
-        lumberyard.img = loadImage("images/lumberyard.jpg");
+        City.img = loadImage("images/village.jpg");
+        Farm.img = loadImage("images/Farm.jpg");
+        Mine.img = loadImage("images/Mine.jpg");
+        Lumberyard.img = loadImage("images/Lumberyard.jpg");
 
-        forest.img = loadImage("images/forest.jpg");
-        mountain.img = loadImage("images/mountain.jpg");
-        plain.img = loadImage("images/plain.jpg");
-        laboratory.img = loadImage("images/laboratory.jpg");
+        Forest.img = loadImage("images/Forest.jpg");
+        Mountain.img = loadImage("images/Mountain.jpg");
+        Plain.img = loadImage("images/Plain.jpg");
+        Laboratory.img = loadImage("images/Laboratory.jpg");
 
-        worker.img = loadImage("images/workerIcon.png");
+        Worker.img = loadImage("images/workerIcon.png");
 
         minim = new Minim(this);
         bgm = minim.loadFile("Audio/9 AM  Animal Crossing New Horizons Soundtrack.mp3");
@@ -67,8 +67,8 @@ public class game extends PApplet {
         inGame = false;
         day = 1;
         placeType = null;
-        simulation.setup();
-        manageTiles.generateTerrain();
+        Simulation.setup();
+        ManageTiles.generateTerrain();
     }
 
     public void draw() {
@@ -76,33 +76,31 @@ public class game extends PApplet {
         staticMouseX = mouseX;
         staticMouseY = mouseY;
         if(!inGame){
-            display.titleScreen(this);
+            Display.titleScreen(this);
         }
         if(inGame){
-            display.displayBackground(this);
-            display.displayTile(this);
-            display.displayUI(this);
-            display.displayInfo(this);
-            display.displayPeople(this);
+            Display.displayBackground(this);
+            Display.displayTile(this);
+            Display.displayUI(this);
+            Display.displayInfo(this);
+            Display.displayPeople(this);
 
             speedTimeFeature();
 
             boolean hoveringOverTile = false;
             for (int i = 0; i < 81; i++) {
-                tile newTile = manageTiles.tileList.get(i);
-                if (mouseOn(newTile.x, newTile.y, tile.w, tile.h)) {
+                Tile newTile = ManageTiles.tileList.get(i);
+                if (mouseOn(newTile.x, newTile.y, Tile.w, Tile.h)) {
                     hoveringOverTile = true;
-                    display.tileIndex = i;
+                    Display.tileIndex = i;
                     newTile.hoveredOver = true;
                 }else{
                     newTile.hoveredOver = false;
                 }
             }
             if (!hoveringOverTile){
-                display.tileIndex = -1;
+                Display.tileIndex = -1;
             }
-
-            System.out.println(managePeople.savedWorkerIndex);
         }
     }
 
@@ -114,60 +112,60 @@ public class game extends PApplet {
     public void mousePressed() {
         if(!inGame){
             textSize(45);
-            inGame = mouseOn(display.playX, display.playY, (int) textWidth("Play") + 120, (int) (textAscent()+textDescent() + 120));
+            inGame = mouseOn(Display.playX, Display.playY, (int) textWidth("Play") + 120, (int) (textAscent()+textDescent() + 120));
             textSize(30);
         }else{
             if(pressRegisters) {
                 for (int i = 0; i < 81; i++) {
-                    tile newTile = manageTiles.tileList.get(i);
-                    if (mouseOn(newTile.x, newTile.y, tile.w, tile.h)) {
-                        if (newTile instanceof mountain && newTile.enriched && placeType instanceof mine && isWorkerOnSelectedTile() && simulation.wood >= mine.cost) {
-                            manageTiles.placeMine(i);
+                    Tile newTile = ManageTiles.tileList.get(i);
+                    if (mouseOn(newTile.x, newTile.y, Tile.w, Tile.h)) {
+                        if (newTile instanceof Mountain && newTile.enriched && placeType instanceof Mine && isWorkerOnSelectedTile() && Simulation.wood >= Mine.cost) {
+                            ManageTiles.placeMine(i);
                         }
-                        if (!(newTile instanceof city || newTile instanceof farm) && placeType instanceof farm && isWorkerOnSelectedTile() && simulation.wood >= farm.cost) {
-                            manageTiles.placeFarm(i);
+                        if (!(newTile instanceof City || newTile instanceof Farm) && placeType instanceof Farm && isWorkerOnSelectedTile() && Simulation.wood >= Farm.cost) {
+                            ManageTiles.placeFarm(i);
                         }
-                        if (!(newTile instanceof city || newTile instanceof laboratory) && newTile.enriched && placeType instanceof laboratory && isWorkerOnSelectedTile() && simulation.stone >= laboratory.cost) {
-                            manageTiles.placeLaboratory(i);
+                        if (!(newTile instanceof City || newTile instanceof Laboratory) && newTile.enriched && placeType instanceof Laboratory && isWorkerOnSelectedTile() && Simulation.stone >= Laboratory.cost) {
+                            ManageTiles.placeLaboratory(i);
                         }
-                        if (newTile instanceof forest && placeType instanceof lumberyard && isWorkerOnSelectedTile() && simulation.wood >= lumberyard.cost) {
-                            manageTiles.placeLumberyard(i);
+                        if (newTile instanceof Forest && placeType instanceof Lumberyard && isWorkerOnSelectedTile() && Simulation.wood >= Lumberyard.cost) {
+                            ManageTiles.placeLumberyard(i);
                         }
                     }
                 }
-                if (mouseOn(display.buildWinX, 170, 100, 100)) {
-                    if (placeType instanceof mine) {
+                if (mouseOn(Display.buildWinX, 170, 100, 100)) {
+                    if (placeType instanceof Mine) {
                         placeType = null;
                     } else {
-                        placeType = new mine(0, 0);
+                        placeType = new Mine(0, 0);
                         canPlaceWorker = false;
                     }
                 }
-                if (mouseOn(display.buildWinX, 45, 100, 100)) {
-                    if (placeType instanceof farm) {
+                if (mouseOn(Display.buildWinX, 45, 100, 100)) {
+                    if (placeType instanceof Farm) {
                         placeType = null;
                     } else {
-                        placeType = new farm(0, 0);
+                        placeType = new Farm(0, 0);
                         canPlaceWorker = false;
                     }
                 }
-                if (mouseOn(display.buildWinX, 275, 100, 100)) {
-                    if (placeType instanceof laboratory) {
+                if (mouseOn(Display.buildWinX, 275, 100, 100)) {
+                    if (placeType instanceof Laboratory) {
                         placeType = null;
                     } else {
-                        placeType = new laboratory(0, 0);
+                        placeType = new Laboratory(0, 0);
                         canPlaceWorker = false;
                     }
                 }
-                if (mouseOn(display.buildWinX, 420, 100, 100)) {
-                    if (placeType instanceof lumberyard) {
+                if (mouseOn(Display.buildWinX, 420, 100, 100)) {
+                    if (placeType instanceof Lumberyard) {
                         placeType = null;
                     } else {
-                        placeType = new lumberyard(0, 0);
+                        placeType = new Lumberyard(0, 0);
                         canPlaceWorker = false;
                     }
                 }
-                if (mouseOn(display.buildWinX, 525, 100, 100)) {
+                if (mouseOn(Display.buildWinX, 525, 100, 100)) {
                     if (!canPlaceWorker) {
                         placeType = null;
                         canPlaceWorker = true;
@@ -176,32 +174,32 @@ public class game extends PApplet {
                     }
                 }
 
-                if (mouseOn(display.undoX, display.undoY, display.undoW, display.undoH)) {
+                if (mouseOn(Display.undoX, Display.undoY, Display.undoW, Display.undoH)) {
                     undoLast();
                 }
 
                 if (placeType == null && !canPlaceWorker && clickedInWorldView()){
                     if (canSelectWorker) {
-                        managePeople.selectPerson(this);
+                        ManagePeople.selectPerson(this);
                     } else {
-                        managePeople.movePerson(this);
+                        ManagePeople.movePerson(this);
                     }
                 }else{
-                    if(managePeople.selected != null) {
-                        managePeople.selected.selected = false;
+                    if(ManagePeople.selected != null) {
+                        ManagePeople.selected.selected = false;
                     }
-                    managePeople.selected = null;
+                    ManagePeople.selected = null;
                 }
 
                 if(placeType == null && canPlaceWorker && clickedInWorldView()){
-                    managePeople.generateWorker(mouseX/100,mouseY/100);
+                    ManagePeople.generateWorker(mouseX/100,mouseY/100);
                 }
 
                 if (canPlaceWorker) {
-                    for (tile t : manageTiles.tileList) {
+                    for (Tile t : ManageTiles.tileList) {
                         boolean isOccupied = false;
 
-                        for (person p : managePeople.personList) {
+                        for (Person p : ManagePeople.personList) {
                             if (t.row == p.row && t.col == p.col) {
                                 isOccupied = true;
                                 break;
@@ -209,8 +207,8 @@ public class game extends PApplet {
                         }
 
                         if (!isOccupied && mouseOn(t.row * 100, t.col * 100, 100, 100)) {
-                            // If the tile is not occupied and the mouse is on it, add a new worker
-                            managePeople.generateWorker(t.row,t.col);
+                            // If the Tile is not occupied and the mouse is on it, add a new Worker
+                            ManagePeople.generateWorker(t.row,t.col);
                         }
                     }}
 
@@ -221,13 +219,13 @@ public class game extends PApplet {
 
     public void mouseReleased(){
         pressRegisters = true;
-        canSelectWorker = managePeople.selected == null;
+        canSelectWorker = ManagePeople.selected == null;
     }
 
     public void speedTimeFeature(){
         if(keyPressed && key == ' '){
             if(holdingNextTurn){
-                simulation.simulateOneTick();
+                Simulation.simulateOneTick();
             }
             holdNextTurnTimer++;
             if(holdNextTurnTimer >= 10){
@@ -241,7 +239,7 @@ public class game extends PApplet {
 
     public void keyReleased(){
         if (key == ' ' && !holdingNextTurn) {
-            simulation.simulateOneTick();
+            Simulation.simulateOneTick();
         }if(key == 'r' || key == 'R'){
             gameSetup();
         }
@@ -269,32 +267,32 @@ public class game extends PApplet {
     public static void undoLast() {
         System.out.println("HEY");
         if(canUndoTile()){
-            manageTiles.tileList.set(manageTiles.savedTileIndex, manageTiles.savedOldTile);
-            simulation.workerAmt= manageTiles.savedWorkerNum;
-            simulation.stone = manageTiles.savedStone;
-            simulation.wood = manageTiles.savedWood;
-            manageTiles.savedDay = -1;
+            ManageTiles.tileList.set(ManageTiles.savedTileIndex, ManageTiles.savedOldTile);
+            Simulation.workerAmt= ManageTiles.savedWorkerNum;
+            Simulation.stone = ManageTiles.savedStone;
+            Simulation.wood = ManageTiles.savedWood;
+            ManageTiles.savedDay = -1;
         }
         if(canUndoPerson()){
             System.out.println("HI");
-            managePeople.personList.remove(managePeople.savedWorkerIndex);
-            simulation.workerAmt++;
-            managePeople.savedDay = -1;
+            ManagePeople.personList.remove(ManagePeople.savedWorkerIndex);
+            Simulation.workerAmt++;
+            ManagePeople.savedDay = -1;
         }
     }
 
     public static boolean canUndoTile(){
-        return manageTiles.savedTileIndex >= 0 && manageTiles.savedDay == game.day;
+        return ManageTiles.savedTileIndex >= 0 && ManageTiles.savedDay == Game.day;
     }
 
     public static boolean canUndoPerson(){
-        return managePeople.savedWorkerIndex >= 0 && managePeople.savedDay == game.day;
+        return ManagePeople.savedWorkerIndex >= 0 && ManagePeople.savedDay == Game.day;
     }
 
     public static boolean isWorkerOnSelectedTile(){
-        game instance =  new game();
-        for(tile t : manageTiles.tileList){
-            for(person p : managePeople.personList){
+        Game instance =  new Game();
+        for(Tile t : ManageTiles.tileList){
+            for(Person p : ManagePeople.personList){
                 if(t.row == p.row && t.col == p.col){
                     if(instance.mouseOn(t.row*100,t.col*100,100,100)){
                         return true;
@@ -307,7 +305,7 @@ public class game extends PApplet {
 
     public boolean clickedInWorldView(){
         boolean clickedInWorldView = false;
-        for(tile t : manageTiles.tileList) {
+        for(Tile t : ManageTiles.tileList) {
             if (mouseOn(t.row * 100, t.col * 100, 100, 100)) {
                 clickedInWorldView = true;
             }
@@ -316,6 +314,6 @@ public class game extends PApplet {
     }
 
     public static void main(String[] args) {
-        PApplet.main("game");
+        PApplet.main("Game");
     }
 }

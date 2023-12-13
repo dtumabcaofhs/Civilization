@@ -3,7 +3,7 @@ package people;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class person {
+public class Person {
     PImage img;
     public static int w = 40, h = 40;
     public int row, col, x, y;
@@ -15,7 +15,7 @@ public class person {
     public boolean selected;
     boolean brightCalculated = false;
     boolean useImages = true;
-    public person(int row, int col, PImage img) {
+    public Person(int row, int col, PImage img) {
         this.row = row;
         this.col = col;
         this.x = row * 100 + 30;

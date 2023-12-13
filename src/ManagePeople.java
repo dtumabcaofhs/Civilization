@@ -1,29 +1,29 @@
 import people.*;
-import tiles.tile;
+import tiles.Tile;
 
 import java.util.ArrayList;
 
-public class managePeople {
-    public static person selected;
+public class ManagePeople {
+    public static Person selected;
     static int savedWorkerIndex = -1, savedDay;
-    static ArrayList<person> personList = new ArrayList<>();
+    static ArrayList<Person> personList = new ArrayList<>();
     public static void generateWorker(int row, int col) {
-        worker worker = new worker(row, col);
-        savedDay = game.day;
+        Worker worker = new Worker(row, col);
+        savedDay = Game.day;
         savedWorkerIndex = personList.size();
         personList.add(worker);
-        simulation.workerAmt--;
+        Simulation.workerAmt--;
     }
 
-    public static void selectPerson(game window){
-        //selects clicked worker and unselects other workers
-        for (tile t : manageTiles.tileList) {
-            for (person p : managePeople.personList) {
+    public static void selectPerson(Game window){
+        //selects clicked Worker and unselects other workers
+        for (Tile t : ManageTiles.tileList) {
+            for (Person p : ManagePeople.personList) {
                 if(t.row == p.row && t.col == p.col) {
                     if (window.mouseOn(t.row * 100, t.col * 100, 100, 100)) {
-                        if (managePeople.selected != p) {
+                        if (ManagePeople.selected != p) {
                             p.selected = true;
-                            managePeople.selected = p;
+                            ManagePeople.selected = p;
                         }
                     } else {
                         p.selected = false;
@@ -33,18 +33,18 @@ public class managePeople {
         }
     }
 
-    public static void movePerson(game window){
-        for (tile t : manageTiles.tileList) {
+    public static void movePerson(Game window){
+        for (Tile t : ManageTiles.tileList) {
             for (int i = 0; i < personList.size(); i++) {
-                person p = personList.get(i);
+                Person p = personList.get(i);
                 if(t.row == p.row && t.col == p.col) {
                     if (selected == p) {
 
                         boolean workerOnTile = false;
-                        for (tile t2 : manageTiles.tileList) {
-                            for (person p2 : personList) {
+                        for (Tile t2 : ManageTiles.tileList) {
+                            for (Person p2 : personList) {
                                 if (t2.row == p2.row && t2.col == p2.col) {
-                                    if((game.staticMouseX/100) == t2.row && (game.staticMouseY/100) == t2.col) {
+                                    if((Game.staticMouseX/100) == t2.row && (Game.staticMouseY/100) == t2.col) {
                                         workerOnTile = true;
                                     }
                                 }
@@ -53,9 +53,9 @@ public class managePeople {
 
                         if(!workerOnTile) {
                             if (window.mouseOn(t.row * 100, t.col * 100, 100, 100)) {
-                                if (managePeople.selected == p) {
+                                if (ManagePeople.selected == p) {
                                     p.selected = false;
-                                    managePeople.selected = null;
+                                    ManagePeople.selected = null;
                                 }
                             }
                             boolean clickedSurroundingTiles = false;

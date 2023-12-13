@@ -1,9 +1,9 @@
 import tiles.*;
-import tiles.buildings.farm;
-import tiles.buildings.lumberyard;
-import tiles.buildings.mine;
+import tiles.buildings.Farm;
+import tiles.buildings.Lumberyard;
+import tiles.buildings.Mine;
 
-public class simulation {
+public class Simulation {
     public static int population;
     public static int food = 500, personFoodConsumption = 1, foodConsumption;
     public static int workerAmt;
@@ -32,19 +32,19 @@ public class simulation {
 
         if(population > 0) {
             wood += workerAmt/5;
-            for (int i = 0; i < manageTiles.tileList.size(); i++) {
-                tile currTile = manageTiles.tileList.get(i);
-                if (currTile instanceof farm) {
+            for (int i = 0; i < ManageTiles.tileList.size(); i++) {
+                Tile currTile = ManageTiles.tileList.get(i);
+                if (currTile instanceof Farm) {
                     food += 30;
                 }
-                if (currTile instanceof lumberyard) {
+                if (currTile instanceof Lumberyard) {
                     wood += 2;
                 }
-                if (currTile instanceof mine) {
+                if (currTile instanceof Mine) {
                     stone += 2;
                 }
             }
         }
-        game.day++;
+        Game.day++;
     }
 }

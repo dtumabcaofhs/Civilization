@@ -2,13 +2,18 @@
 
 <img src="images/D&N Games Logo2.png" width="50"> By Dean Tumabcao & Alan McWilliams for a high school assignment. Coded with Java, coffee (get it?) and love. Dean overdid it.
 
-# Version 0.16
+# Version 0.16.1
+
 ## Includes  
+**Latest Patch**
+* Changed class names
+
+**Latest Minor**
 * Relatively beautiful README!
 * Finished worker feature
 * Added undo functionality for workers
 * Tidied up code
-* Fixed bugs  
+* Fixed bugs
 
 ## About
 A video game where you can manage a civilization.
@@ -26,7 +31,7 @@ which consists of buttons that allow you to manipulate 🗺️ The World View to
 * ℹ️ The text between those makes up the ℹ️ Stat-Sheet, which details information
 about your civilization, its world, and your selected place type.
 #### 🧩 The Fundamentals
-* ➡️ You start the game with 20 people, 500 food, 10 workers, 20 wood and 20 stone.
+* ➡️ You start the Game with 20 people, 500 food, 10 workers, 20 wood and 20 stone.
 * 🌓 Half of the population are workers.
 * 👷 Workers are shown in 🗺️ The World View with a <img src="images/workerIcon.png" width="25">.
 * Enriched tiles are indicated by a <img src="images/enrichedIcon.png" width="25"> on the top right of a tile.
@@ -56,6 +61,6 @@ and click on it to place your selected Place type there.
 * 🔙 Click the Undo button to undo placements with the Undo button when the text 
 lights up.
 #### 🌐 Miscellaneous
-* 🔚 Press the "R" key to reset game progress & return to title screen.
+* 🔚 Press the "R" key to reset Game progress & return to title screen.
 
 #### Good luck being a god!

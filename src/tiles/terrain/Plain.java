@@ -1,11 +1,11 @@
 package tiles.terrain;
 
-import tiles.tile;
+import tiles.Tile;
 import processing.core.PImage;
 
-public class plain extends tile {
+public class Plain extends Tile {
     public static PImage img;
-    public plain(int row, int col) {
+    public Plain(int row, int col) {
         super(row, col, img);
         r = 0;
         g = 200;
