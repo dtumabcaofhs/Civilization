@@ -20,13 +20,12 @@ public class tile {
     public tile(int row, int col, PImage img){
         this.row = row;
         this.col = col;
-
         this.x = row * w;
         this.y = col * h;
         this.img = img;
     }
 
-    public void draw(PApplet window, boolean canBuildOnHover, tile buildType){
+    public void draw(PApplet window, boolean canBuildOnHover, tile buildType, boolean canPlaceWorker){
         if (!brightCalculated) {
             calcBrightness();
             brightCalculated = true;
@@ -35,7 +34,7 @@ public class tile {
         if(hoveredOver) {
             if (img == null || !useImages) {
                 window.fill(rB, gB, bB);
-            } else if(buildType != null){
+            } else if(buildType != null || canPlaceWorker){
                 if (canBuildOnHover) {
                     window.tint(0,255,0, 150);
                 }else{

@@ -13,19 +13,20 @@ public class person {
     protected int rB,gB,bB;
     public int value;
     public boolean selected;
-    public int movementNum;
     boolean brightCalculated = false;
     boolean useImages = true;
     public person(int row, int col, PImage img) {
         this.row = row;
         this.col = col;
-        System.out.println(row+","+col);
         this.x = row * 100 + 30;
         this.y = col * 100 + 30;
         this.selected = false;
+        this.img = img;
     }
 
     public void draw(PApplet window){
+        x = row * 100 + 30;
+        y = col * 100 + 30;
         if (!brightCalculated) {
             calcBrightness();
             brightCalculated = true;
@@ -46,14 +47,13 @@ public class person {
         }
 
         if(useImages){
-            System.out.println("yee");
             if (img != null) {
                 window.image(img, x, y, w, h);
             }else{
                 window.rect(x, y, w, h);
             }
         }else{
-            //window.rect(x, y, w, h);
+            window.rect(x, y, w, h);
         }
     }
 

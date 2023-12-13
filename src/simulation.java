@@ -32,8 +32,8 @@ public class simulation {
 
         if(population > 0) {
             wood += workerAmt/5;
-            for (int i = 0; i < generateTile.tileList.size(); i++) {
-                tile currTile = generateTile.tileList.get(i);
+            for (int i = 0; i < manageTiles.tileList.size(); i++) {
+                tile currTile = manageTiles.tileList.get(i);
                 if (currTile instanceof farm) {
                     food += 30;
                 }
@@ -45,6 +45,6 @@ public class simulation {
                 }
             }
         }
-        game.turn++;
+        game.day++;
     }
 }

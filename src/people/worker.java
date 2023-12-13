@@ -1,7 +1,6 @@
 package people;
 
 import processing.core.PImage;
-
 public class worker extends person {
     public static PImage img;
     public worker(int row, int col) {
