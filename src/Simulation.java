@@ -11,7 +11,7 @@ public class Simulation {
     public static int stone;
 
     public static void setup(){
-        population = 20;
+        population = 500;
         food = 500;
         personFoodConsumption = 1;
         workerAmt = population/2;

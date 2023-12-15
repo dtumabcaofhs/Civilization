@@ -2,11 +2,16 @@
 
 <img src="images/D&N Games Logo2.png" width="50"> By Dean Tumabcao & Alan McWilliams for a high school assignment. Coded with Java, coffee (get it?) and love. Dean overdid it.
 
-# Version 0.16.1
+# Version 0.16.2
 
 ## Includes  
 **Latest Patch**
-* Changed class names
+* Stopped # of workers from decreasing when trying to place worker on tile already occupied by a worker
+* Added looping background music
+* Fixed colors of worker on selected tile info to be accurate to selected place type
+* Added worker placeable in feature to ℹ️ Stat-Sheet
+* Improved README
+* Changed image and code names
 
 **Latest Minor**
 * Relatively beautiful README!
@@ -18,7 +23,7 @@
 ## About
 A video game where you can manage a civilization.
 ### 📷 Screenshots
-![](images/CivilizationScreenshot1.png)  
+![](images/civilizationScreenshot1.png)  
 ### 📖 Civilization Guide
 #### 👋 Introduction
 Welcome to **Civilization**! In this video game, you exist in The World. You are granted godly, society-shaping powers. From ~~the~~ ~~heavens~~ wherever you are, you oversee a human village.
@@ -30,10 +35,12 @@ the Galactic Empire, what happens to them is _your_ call.
 which consists of buttons that allow you to manipulate 🗺️ The World View to your vision.
 * ℹ️ The text between those makes up the ℹ️ Stat-Sheet, which details information
 about your civilization, its world, and your selected place type.
+* ⚠️ If a number variable turns red, this means that it is relatively low or 0.
 #### 🧩 The Fundamentals
 * ➡️ You start the Game with 20 people, 500 food, 10 workers, 20 wood and 20 stone.
+* 🍉 Each person needs 1 piece of food to live for a day.
 * 🌓 Half of the population are workers.
-* 👷 Workers are shown in 🗺️ The World View with a <img src="images/workerIcon.png" width="25">.
+* 👷 Workers are shown in 🗺️ The World View with a <img src="images/worker.png" width="25">.
 * Enriched tiles are indicated by a <img src="images/enrichedIcon.png" width="25"> on the top right of a tile.
 #### ⚒️ Place Types
 * 🌽 Farm
@@ -54,7 +61,7 @@ in the ℹ️ Stat-Sheet.
 * ⏩ Hold the "Space" key to increment days continuously.
 #### 📌 How To Move Workers
 * With no Place type selected, click on a worker (construction helmet) on 🗺️ The 
-World View.
+World View. Click on a surrounding tile to place them. Selecting anything else deselects them.
 #### 🛠️ How To Place
 * 🔨 Click on a Place button to select a Place type (eg. a farm), hover over a tile, 
 and click on it to place your selected Place type there.

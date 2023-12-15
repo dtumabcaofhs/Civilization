@@ -40,16 +40,7 @@ public class ManagePeople {
                 if(t.row == p.row && t.col == p.col) {
                     if (selected == p) {
 
-                        boolean workerOnTile = false;
-                        for (Tile t2 : ManageTiles.tileList) {
-                            for (Person p2 : personList) {
-                                if (t2.row == p2.row && t2.col == p2.col) {
-                                    if((Game.staticMouseX/100) == t2.row && (Game.staticMouseY/100) == t2.col) {
-                                        workerOnTile = true;
-                                    }
-                                }
-                            }
-                        }
+                        boolean workerOnTile = isWorkerOnTile();
 
                         if(!workerOnTile) {
                             if (window.mouseOn(t.row * 100, t.col * 100, 100, 100)) {
@@ -108,5 +99,19 @@ public class ManagePeople {
                 }
             }
         }
+    }
+
+    private static boolean isWorkerOnTile() {
+        boolean workerOnTile = false;
+        for (Tile t2 : ManageTiles.tileList) {
+            for (Person p2 : personList) {
+                if (t2.row == p2.row && t2.col == p2.col) {
+                    if((Game.staticMouseX/100) == t2.row && (Game.staticMouseY/100) == t2.col) {
+                        workerOnTile = true;
+                    }
+                }
+            }
+        }
+        return workerOnTile;
     }
 }

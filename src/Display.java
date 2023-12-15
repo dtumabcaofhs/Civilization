@@ -31,7 +31,7 @@ public class Display {
         //credit
         window.fill(255);
         window.textSize(30);
-        window.text("Developed by Dean T & Alan M", 580, 880);
+        window.text("Developed by Dean Tumabcao & Alan McWilliams", 450, 880);
     }
 
     public static void displayTile(Game window){
@@ -140,20 +140,8 @@ public class Display {
         window.fill(255);
         window.text("Population: ", 905, 80);
 
-        int nextFood = Simulation.food - (Simulation.population * Simulation.personFoodConsumption);
-        if(nextFood < 0) {
-            nextFood = 0;
-        }
-        int foodSourceCount = 0;
-        for (int i = 0; i < ManageTiles.tileList.size(); i++) {
-            Tile currTile = ManageTiles.tileList.get(i);
-            if (currTile instanceof Farm) {
-                foodSourceCount++;
-            }
-        }
-        if(Simulation.population > 0){
-            nextFood += foodSourceCount*30;
-        }if(nextFood == 0){
+        int nextFood = getNextFood();
+        if(nextFood == 0){
             window.fill(255,0,0);
         }else{
             window.fill(0,255,0);
@@ -210,8 +198,8 @@ public class Display {
                 type = "Plain";
             } else if (selectedTile instanceof Mountain) {
                 type = "Mountain";
-            } else if (selectedTile instanceof City) {
-                type = "City";
+            } else if (selectedTile instanceof Village) {
+                type = "Village";
             } else if (selectedTile instanceof Mine) {
                 type = "Mine";
             } else if (selectedTile instanceof Farm) {
@@ -271,6 +259,11 @@ public class Display {
             }
         }
         if (Game.canPlaceWorker) {
+            if(Simulation.workerAmt >= 1){
+                window.fill(0,255,0);
+            }else{
+                window.fill(255,0,0);
+            }
             window.text("Cost: 1 Available Worker", 905, 650);
         } else if(cost >= 0) {
             window.text("Cost: " + cost + " " + material, 905, 650);
@@ -280,9 +273,21 @@ public class Display {
 
 
         if (Game.isWorkerOnSelectedTile()) {
-            window.fill(0, 255, 0);
+            if(Game.placeType != null) {
+                window.fill(0, 255, 0);
+            }else if(Game.canPlaceWorker) {
+                window.fill(255,0,0);
+            }else{
+                window.fill(255);
+            }
         } else {
-            window.fill(255, 0, 0);
+            if(Game.placeType != null) {
+                window.fill(255,0, 0);
+            }else if(Game.canPlaceWorker) {
+                window.fill(0,255,0);
+            }else{
+                window.fill(255);
+            }
         }
         if (Game.isWorkerOnSelectedTile()) {
             window.text("Worker On Selected Tile: Yes", 905, 700);
@@ -306,16 +311,19 @@ public class Display {
         }if(Game.placeType instanceof Lumberyard){
             placeableTiles = Lumberyard.buildTxt;
         }
-        if(!placeableTiles.isEmpty()) {
+        if(!placeableTiles.isEmpty() || Game.canPlaceWorker) {
             if(enriched) {
                 window.fill(255,255,0);
-                window.text("Buildable in: " + placeableTiles, 905, 750);
             }else{
                 window.fill(200);
-                window.text("Buildable in: " + placeableTiles, 905, 750);
+            }
+            if(!placeableTiles.isEmpty()){
+                window.text("Placeable in: " + placeableTiles, 905, 750);
+            }else{
+                window.text("Placeable in: Any Tile without a\nWorker on it", 905, 750);
             }
             window.fill(255);
-            window.text("Buildable in: ", 905, 750);
+            window.text("Placeable in: ", 905, 750);
         }
 
 
@@ -374,6 +382,24 @@ public class Display {
         window.text("Place: "+placeType, 905, 600);
         window.fill(255);
         window.text("Place: ", 905, 600);
+    }
+
+    private static int getNextFood() {
+        int nextFood = Simulation.food - (Simulation.population * Simulation.personFoodConsumption);
+        if(nextFood < 0) {
+            nextFood = 0;
+        }
+        int foodSourceCount = 0;
+        for (int i = 0; i < ManageTiles.tileList.size(); i++) {
+            Tile currTile = ManageTiles.tileList.get(i);
+            if (currTile instanceof Farm) {
+                foodSourceCount++;
+            }
+        }
+        if(Simulation.population > 0){
+            nextFood += foodSourceCount*30;
+        }
+        return nextFood;
     }
 
     private static int getBuildableAreaNum() {

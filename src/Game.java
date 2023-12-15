@@ -33,32 +33,30 @@ public class Game extends PApplet {
             surface.setLocation(1920/2-1600/2,(1080-100)/2-900/2);
         }
         surface.setFrameRate(240);
-        icon = loadImage("images/CivilizationLogo.jpg");
+        icon = loadImage("images/civilizationLogo.jpg");
         surface.setIcon(icon);
 
         Display.logo = loadImage("images/logo.png");
 
         Tile.enrichedImg = loadImage("images/enrichedIcon.png");
 
-        City.img = loadImage("images/village.jpg");
-        Farm.img = loadImage("images/Farm.jpg");
-        Mine.img = loadImage("images/Mine.jpg");
-        Lumberyard.img = loadImage("images/Lumberyard.jpg");
+        Village.img = loadImage("images/village.jpg");
+        Farm.img = loadImage("images/farm.jpg");
+        Mine.img = loadImage("images/mine.jpg");
+        Lumberyard.img = loadImage("images/lumberyard.jpg");
 
-        Forest.img = loadImage("images/Forest.jpg");
-        Mountain.img = loadImage("images/Mountain.jpg");
-        Plain.img = loadImage("images/Plain.jpg");
-        Laboratory.img = loadImage("images/Laboratory.jpg");
+        Forest.img = loadImage("images/forest.jpg");
+        Mountain.img = loadImage("images/mountain.jpg");
+        Plain.img = loadImage("images/plain.jpg");
+        Laboratory.img = loadImage("images/laboratory.jpg");
 
-        Worker.img = loadImage("images/workerIcon.png");
+        Worker.img = loadImage("images/worker.png");
 
         minim = new Minim(this);
         bgm = minim.loadFile("Audio/9 AM  Animal Crossing New Horizons Soundtrack.mp3");
         bgm2 = minim.loadFile("Audio/10 AM  Animal Crossing New Horizons Soundtrack.mp3");
         bgm3 = minim.loadFile("Audio/12 PM  Animal Crossing New Horizons Soundtrack.mp3");
         bgm4 = minim.loadFile("Audio/Gangnam Style.mp3");
-
-        chooseBGM();
 
         gameSetup();
     }
@@ -73,8 +71,12 @@ public class Game extends PApplet {
 
     public void draw() {
         background(255);
+
         staticMouseX = mouseX;
         staticMouseY = mouseY;
+
+        manageBGM();
+
         if(!inGame){
             Display.titleScreen(this);
         }
@@ -122,10 +124,10 @@ public class Game extends PApplet {
                         if (newTile instanceof Mountain && newTile.enriched && placeType instanceof Mine && isWorkerOnSelectedTile() && Simulation.wood >= Mine.cost) {
                             ManageTiles.placeMine(i);
                         }
-                        if (!(newTile instanceof City || newTile instanceof Farm) && placeType instanceof Farm && isWorkerOnSelectedTile() && Simulation.wood >= Farm.cost) {
+                        if (!(newTile instanceof Village || newTile instanceof Farm) && placeType instanceof Farm && isWorkerOnSelectedTile() && Simulation.wood >= Farm.cost) {
                             ManageTiles.placeFarm(i);
                         }
-                        if (!(newTile instanceof City || newTile instanceof Laboratory) && newTile.enriched && placeType instanceof Laboratory && isWorkerOnSelectedTile() && Simulation.stone >= Laboratory.cost) {
+                        if (!(newTile instanceof Village || newTile instanceof Laboratory) && newTile.enriched && placeType instanceof Laboratory && isWorkerOnSelectedTile() && Simulation.stone >= Laboratory.cost) {
                             ManageTiles.placeLaboratory(i);
                         }
                         if (newTile instanceof Forest && placeType instanceof Lumberyard && isWorkerOnSelectedTile() && Simulation.wood >= Lumberyard.cost) {
@@ -191,11 +193,8 @@ public class Game extends PApplet {
                     ManagePeople.selected = null;
                 }
 
-                if(placeType == null && canPlaceWorker && clickedInWorldView()){
-                    ManagePeople.generateWorker(mouseX/100,mouseY/100);
-                }
 
-                if (canPlaceWorker) {
+                if (canPlaceWorker && clickedInWorldView()) {
                     for (Tile t : ManageTiles.tileList) {
                         boolean isOccupied = false;
 
@@ -210,7 +209,9 @@ public class Game extends PApplet {
                             // If the Tile is not occupied and the mouse is on it, add a new Worker
                             ManagePeople.generateWorker(t.row,t.col);
                         }
-                    }}
+                    }
+                }
+
 
                 pressRegisters = false;
             }
@@ -245,7 +246,7 @@ public class Game extends PApplet {
         }
     }
 
-    public void chooseBGM(){
+    public void manageBGM(){
         if(!bgm.isPlaying() && !bgm2.isPlaying() && !bgm3.isPlaying() && !bgm4.isPlaying()) {
             int x = (int) (Math.random() * 10);
             if (x < 3) {

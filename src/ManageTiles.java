@@ -38,9 +38,9 @@ public class ManageTiles {
                     mountain.enriched = randomizeEnrichment();
                     tileList.add(mountain);
                 } else if (rand == 3){
-                    City city = new City(row, col);
-                    city.enriched = false;
-                    tileList.add(city);
+                    Village village = new Village(row, col);
+                    village.enriched = false;
+                    tileList.add(village);
                 }
             }
         }
