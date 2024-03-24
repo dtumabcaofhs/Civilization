@@ -66,6 +66,7 @@ public class Game extends PApplet {
         day = 1;
         placeType = null;
         Simulation.setup();
+        ManagePeople.personList.clear();
         ManageTiles.generateTerrain();
     }
 

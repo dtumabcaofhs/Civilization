@@ -2,9 +2,14 @@
 
 <img src="images/D&N Games Logo2.png" width="50"> By Dean Tumabcao & Alan McWilliams for a high school assignment. Coded with Java, coffee (get it?) and love. Dean overdid it.
 
-# Version 0.16.2
+# Version 1.0.0
 
 ## Includes  
+**Latest Major**
+* "Official" release
+* Added version to bottom-right of title screen
+* Removed workers when resetting game
+
 **Latest Patch**
 * Stopped # of workers from decreasing when trying to place worker on tile already occupied by a worker
 * Added looping background music

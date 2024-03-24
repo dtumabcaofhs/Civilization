@@ -7,6 +7,7 @@ import tiles.terrain.Plain;
 import processing.core.PImage;
 
 public class Display {
+    static String version = "1.0.0";
     static int undoX = 1400, undoY = 800, undoW = 200, undoH = 100;
     public static int buildWinX = 1450;
     static PImage logo;
@@ -31,6 +32,7 @@ public class Display {
         //credit
         window.fill(255);
         window.textSize(30);
+        window.text("v"+version, 5, 880);
         window.text("Developed by Dean Tumabcao & Alan McWilliams", 450, 880);
     }
 
