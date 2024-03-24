@@ -27,6 +27,8 @@
 
 ## About
 A video game where you can manage a civilization.
+### 🎞️ Trailer
+https://github.com/dtumabcaofhs/Civilization/assets/143454140/4bc5d93b-10d7-4e34-a2b6-16294d90044f
 ### 📷 Screenshots
 ![](images/civilizationScreenshot1.png)  
 ### 📖 Civilization Guide
