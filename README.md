@@ -2,7 +2,7 @@
 
 <img src="images/D&N Games Logo2.png" width="50"> By Dean Tumabcao & Alan McWilliams for a high school assignment. Coded with Java, coffee (get it?) and love. Dean overdid it.
 
-# Version 1.0.0
+# Version 1.0.1
 
 ## Includes  
 **Latest Major**
@@ -19,11 +19,8 @@
 * Changed image and code names
 
 **Latest Minor**
-* Relatively beautiful README!
-* Finished worker feature
-* Added undo functionality for workers
-* Tidied up code
-* Fixed bugs
+* RELEASED an EXE!
+* Changed code accessing a directory
 
 ## About
 A video game where you can manage a civilization.
