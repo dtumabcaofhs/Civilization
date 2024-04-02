@@ -53,10 +53,10 @@ public class Game extends PApplet {
         Worker.img = loadImage("images/worker.png");
 
         minim = new Minim(this);
-        bgm = minim.loadFile("Audio/9 AM  Animal Crossing New Horizons Soundtrack.mp3");
-        bgm2 = minim.loadFile("Audio/10 AM  Animal Crossing New Horizons Soundtrack.mp3");
-        bgm3 = minim.loadFile("Audio/12 PM  Animal Crossing New Horizons Soundtrack.mp3");
-        bgm4 = minim.loadFile("Audio/Gangnam Style.mp3");
+        bgm = minim.loadFile("audio/9 AM  Animal Crossing New Horizons Soundtrack.mp3");
+        bgm2 = minim.loadFile("audio/10 AM  Animal Crossing New Horizons Soundtrack.mp3");
+        bgm3 = minim.loadFile("audio/12 PM  Animal Crossing New Horizons Soundtrack.mp3");
+        bgm4 = minim.loadFile("audio/Gangnam Style.mp3");
 
         gameSetup();
     }
