@@ -27,7 +27,7 @@ public class Game extends PApplet {
     }
 
     public void setup() {
-        surface.setTitle("Civilization"); //App titlebar name
+        surface.setTitle("Civilization "+Display.version); //App titlebar name
         surface.setResizable(true);
         if(displayWidth == 1920 && displayHeight == 1080) {
             surface.setLocation(1920/2-1600/2,(1080-100)/2-900/2);
