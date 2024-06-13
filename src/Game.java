@@ -33,7 +33,7 @@ public class Game extends PApplet {
             surface.setLocation(1920/2-1600/2,(1080-100)/2-900/2);
         }
         surface.setFrameRate(240);
-        icon = loadImage("images/civilizationLogo.jpg");
+        icon = loadImage("images/civilizationLogo.png");
         surface.setIcon(icon);
 
         Display.logo = loadImage("images/logo.png");
